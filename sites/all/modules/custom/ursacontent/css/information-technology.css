@@ -1,0 +1,100 @@
+.information-technology-imagemap {
+	display: block;
+	background-image: url(../images/case-studies/information-technology/imagemap.png);
+	background-repeat: no-repeat;
+}
+
+.information-technology-case-study-section {
+}
+
+	.information-technology-case-study-section-header {
+	}
+	
+		#information-technology-case-study-section-header-content {
+		}
+		
+			#information-technology-case-study-section-header-image {
+			}
+		
+			#information-technology-case-study-header-logo {
+			}
+	
+	#information-technology-case-study-testimonial-top {
+		height: 390px;
+	}
+		
+		#information-technology-case-study-testimonial-top .case-study-client-quote {
+			height: 360px;
+		}
+	
+	#information-technology-case-study-testimonial-top .full-width {
+		height: 390px;
+	}
+		
+	#information-technology-case-study-polaris-solution {
+		height: 420px;
+	}
+	
+		#information-technology-case-study-polaris-solution .full-width {
+			height: 519px;
+			top: -99px;
+			position: relative;
+		}
+	
+		#information-technology-case-study-polaris-solution .case-study-content-content-inner {
+			height: 519px;
+			background-position: 0 -145px;
+		}
+			
+		#information-technology-case-study-polaris-solution .case-study-content-textbox {
+			position: absolute;
+			right: 0;
+			bottom: 110px;
+		}
+		
+	#information-technology-case-study-client-quote {
+		height: 440px;
+	}
+		
+		#information-technology-case-study-client-quote .full-width {
+			background: #f9f9f9;
+			/* box-shadow */
+			-webkit-box-shadow: inset -100px 0px 300px 20px rgba(0, 0, 0, 0.05),
+													inset 100px 0px 300px 20px rgba(0, 0, 0, 0.05);
+			-moz-box-shadow: inset -100px 0px 300px 20px rgba(0, 0, 0, 0.05),
+													inset 100px 0px 300px 20px rgba(0, 0, 0, 0.05);
+			-ms-box-shadow: inset -100px 0px 300px 20px rgba(0, 0, 0, 0.05),
+													inset 100px 0px 300px 20px rgba(0, 0, 0, 0.05);
+			-o-box-shadow: inset -100px 0px 300px 20px rgba(0, 0, 0, 0.05),
+													inset 100px 0px 300px 20px rgba(0, 0, 0, 0.05);
+			box-shadow: inset -100px 0px 300px 20px rgba(0, 0, 0, 0.05),
+													inset 100px 0px 300px 20px rgba(0, 0, 0, 0.05);
+		}
+		
+		#information-technology-case-study-client-quote .case-study-client-quote {
+			height: 440px;
+		}
+		
+	#information-technology-case-study-outtro {
+		height: 502px;
+	}
+	
+		#information-technology-case-study-outtro .full-width {
+			height: 564px;
+			background-position: right -665px;
+			margin-top: -62px;
+		}
+	
+		#information-technology-case-study-outtro .case-study-content-content-inner {
+			height: 502px;
+			display: table-cell;
+			vertical-align: middle;
+			width: 100%;
+			max-width: none;
+			padding-top: 64px;
+		}
+			
+		#information-technology-case-study-outtro .case-study-content-textbox {
+			width: 37%;
+			padding-left: 16%;
+		}

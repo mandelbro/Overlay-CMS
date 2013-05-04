@@ -1,0 +1,182 @@
+#block-cinder-case-studies {
+	width: 923px;
+	margin: 0 auto;
+	z-index: 100;
+	position: relative;
+}
+	
+	#case-studies-selector-list {
+		width: 934px;
+		margin-left: -11px;
+	}
+	
+		.case-studies-selector-item {
+			width: 456px;
+			height: 272px;
+			margin: 0 0 11px 11px;
+			position: relative;
+			float: left;
+		}
+		
+			.case-studies-selector-item-border {
+				width: 456px;
+				height: 21px;
+				display: block;
+				position: absolute;
+				z-index: 9999;
+				background-image: url(../images/case-studies/border-imagemap.png);
+				background-repeat: no-repeat;
+			}
+		
+			.case-studies-selector-item-border.top-left {
+				top: 0;
+				left: 0;
+				background-position: left top;
+			}
+		
+			.case-studies-selector-item-border.top-right {
+				top: 0;
+				right: 0;
+				background-position: right top;
+			}
+		
+			.case-studies-selector-item-border.bottom-left {
+				bottom: 0;
+				left: 0;
+				background-position: left bottom;
+			}
+		
+			.case-studies-selector-item-border.bottom-right {
+				bottom: 0;
+				right: 0;
+				background-position: right bottom;
+			}
+		
+			.case-studies-selector-link {
+				width: 456px;
+				height: 272px;
+				background-image: url(../images/case-studies/imagemap.jpg);
+				background-repeat: no-repeat;
+				overflow: hidden;
+				display: block;
+			}
+		
+			.case-studies-selector-link.industrials {
+				background-position: 0 0;
+			}
+		
+			.case-studies-selector-link.financials {
+				background-position: -456px 0;
+			}
+		
+			.case-studies-selector-link.pharmaceuticals {
+				background-position: 0 -272px;
+			}
+		
+			.case-studies-selector-link.information-technology {
+				background-position: -456px -272px;
+			}
+			
+				.case-studies-static-text {
+					color: white;
+					text-transform: uppercase;
+					font-family: "Alright Sans Medium";
+					padding: 90px 30px 0;
+					text-align: center;
+					display: block;
+					font-size: 2.7em;
+					line-height: 1.2em;
+					opacity: 1;
+					filter: alpha(opacity=100);
+					letter-spacing: -1px;
+					/* transition */
+					-webkit-transition: opacity .3s ease;
+					-moz-transition: opacity .3s ease;
+					-ms-transition: opacity .3s ease;
+					-o-transition: opacity .3s ease;
+					transition: opacity .3s ease;
+				}
+			
+				.pharmaceuticals .case-studies-static-text {
+					font-size: 2.5em;
+					letter-spacing: -1px;
+				}
+			
+				.information-technology .case-studies-static-text {
+					padding: 55px 30px 0;
+				}
+			
+				a:hover .case-studies-static-text {
+					opacity: 0;
+					filter: alpha(opacity=0);
+				}
+				
+				.case-studies-selector-text {
+					width: 396px;
+					height: 182px;
+					padding: 90px 30px 0;
+					font-size: 1.16em;
+					line-height: 1.4em;
+					position: absolute;
+					z-index: 100;
+					display: block;
+					left: 0;
+					top: 0;
+					opacity: 0;
+					filter: alpha(opacity=0);
+					text-align: center;
+					/* transition */
+					-webkit-transition: opacity .4s ease;
+					-moz-transition: opacity .4s ease;
+					-ms-transition: opacity .4s ease;
+					-o-transition: opacity .4s ease;
+					transition: opacity .4s ease;
+				}
+				
+				.information-technology .case-studies-selector-text {
+					height: 217px;
+					padding: 55px 30px 0;
+				}
+				
+				.case-studies-selector-link:hover .case-studies-selector-text {
+					opacity: 1;
+					filter: alpha(opacity=100);
+				}
+				
+					.case-studies-selector-title {
+						font-family: "Alright Sans Medium";
+						font-size: 2.33em;
+						line-height: 1.2em;
+						padding-bottom: 5px;
+						text-transform: uppercase;
+						letter-spacing: -1px;
+					}
+				
+					.pharmaceuticals .case-studies-selector-title {
+						font-size: 2.15em;
+						letter-spacing: -1px;
+					}
+					
+					.case-studies-selector-view {
+						margin-top: 5px;
+						display: block;
+					}
+				
+					.case-studies-selector-text-background {
+						position: absolute;
+						height: 100%;
+						width: 100%;
+						background: #a787a8;
+						opacity: .80;
+						filter: alpha(opacity=80);
+						top: 0;
+						left: 0;
+						z-index: -10;
+					}
+
+
+
+
+
+
+

@@ -1,0 +1,486 @@
+<?php
+/**
+ *	hero.module
+ *	Created by: mandelbro
+ *		Module for all user account functionality (create, delete, update, add/modify community memberships).
+ *		Communitieis themselves are governed in a separate module.
+ */
+/**
+ * Implementation of hook_boot().
+ */
+function hero_boot() {
+	require_once('include/toolkit.inc');
+}
+/**
+ * Implementation of hook_init().
+ */
+function hero_init() {
+}
+
+/**
+ *  Implementation of hook_permission
+ */
+function hero_permission() {
+}
+
+/**
+ *  Implementation of hook_menu
+function hero_menu() {
+
+}
+ */
+
+/**
+ *  Implementation of hook_theme()
+function hero_theme() {
+}
+ */
+
+/**
+ * Implementation of hook_js_alter
+ */
+function hero_js_alter(&$javascript) {
+	// update jquery and jquery form
+	$javascript['misc/jquery.js']['data'] = drupal_get_path('module', 'hero') . '/js/jquery/jquery.js';
+	if(isset($javascript['misc/jquery.form.js'])) {
+		$javascript['misc/jquery.form.js']['data'] = drupal_get_path('module', 'hero') . '/js/jquery/jquery.form.js';
+	}
+}
+
+/**
+ * Implementation of hook_menu_alter.
+ */
+function hero_menu_alter(&$items) {
+	// @TODO makes all of these configurable options, add more!
+	// kill all taxonomy paths
+	//unset($items['taxonomy/term/%']);
+
+  // Registration and login pages.
+  $items['user'] = array(
+    'title' => 'User account',
+    'title callback' => 'user_menu_title',
+    'page callback' => 'hero_admin_redirect',
+    'access callback' => TRUE,
+    'file' => 'user.pages.inc',
+    'file path' => drupal_get_path('module', 'user'),
+    'weight' => -10,
+    'menu_name' => 'user-menu',
+  );
+
+  $items['user/%user'] = array(
+    'title' => 'My account',
+    'title callback' => 'user_page_title',
+    'title arguments' => array(1),
+    'page callback' => 'hero_admin_user_redirect',
+    'page arguments' => array(1),
+    'access callback' => 'user_view_access',
+    'access arguments' => array(1),
+    // By assigning a different menu name, this item (and all registered child
+    // paths) are no longer considered as children of 'user'. When accessing the
+    // user account pages, the preferred menu link that is used to build the
+    // active trail (breadcrumb) will be found in this menu (unless there is
+    // more specific link), so the link to 'user' will not be in the breadcrumb.
+    'menu_name' => 'navigation',
+  );
+}
+
+/**
+ *  hero_path_redirect()
+ *    Redirects system node requests to their path url alii, if one
+ * 		exists
+ */
+function hero_admin_redirect() {
+	if(user_access('access administration pages')) drupal_goto('admin');
+	return user_page();
+}
+
+/**
+ *  hero_path_redirect()
+ *    Redirects system node requests to their path url alii, if one
+ * 		exists
+ */
+function hero_admin_user_redirect($user) {
+	if(user_access('access administration pages')) drupal_goto('admin');
+	return user_view_page($user);
+}
+
+/**
+ *  Implementation of hook_node_info
+ *    Define custom node type 'page'
+function hero_node_info() {
+}
+ */
+
+/**
+ * Implements hook_field_info
+ */
+function hero_field_info() {
+	return array(
+		'linkfield' => array(
+			'label' => 'Link Field',
+			'description' => 'Provides a group of fields for building an HTML link.',
+			'instance_settings' => array(
+			),
+			'default_widget' => 'linkfield',
+      'default_formatter' => 'link',
+		),
+		'translation_field' => array(
+			'label' => 'Translation String',
+			'description' => 'Translation string.',
+			'instance_settings' => array(
+			),
+			'default_widget' => 'translation_field',
+      'default_formatter' => 'translation_string',
+		),
+	);
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function hero_field_formatter_info() {
+  $formatters = array(
+    'link' => array(
+      'label' => t('Link'),
+      'field types' => array('linkfield', 'translation_field'),
+    ),
+    'translation_string' => array(
+      'label' => t('Translation String'),
+      'field types' => array('translation_field'),
+    ),
+  );
+
+  return $formatters;
+}
+
+/**
+ * Implements hook_field_widget_info().
+ */
+function hero_field_widget_info() {
+  return array(
+    'hero_widget_multifield' => array(
+      'label' => t('Multiple Text Field'),
+      'field types' => array('linkfield'),
+      'behaviors' => array(
+        'multiple values' => FIELD_BEHAVIOR_CUSTOM,
+      ),
+    ),
+    'linkfield' => array(
+      'label' => t('Link Field'),
+      'field types' => array('linkfield'),
+      'behaviors' => array(
+        'multiple values' => FIELD_BEHAVIOR_CUSTOM,
+      ),
+    ),
+    'translation_field' => array(
+      'label' => t('Translation String'),
+      'field types' => array('translation_field'),
+      'behaviors' => array(
+        'multiple values' => FIELD_BEHAVIOR_CUSTOM,
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_widget_form().
+ */
+function hero_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+  switch ($instance['widget']['type']) {
+    case 'hero_widget_multifield':
+      $values = array();
+      foreach ($items as $delta => $value) {
+        $values[] = $value['value'];
+      }
+			$element += array(
+				'#type' => 'textfield',
+				'#maxlength' => '10000',
+				'#default_value' => join(',!', $values),
+				'#element_validate' => array('hero_widget_multifield_validate'),
+			);
+      return $element;
+    case 'linkfield':
+			$element += array(
+				'#type' => count($items) > 1 ? 'item' : 'fieldset',
+				'#element_validate' => array('hero_widget_linkfield_validate'),
+				'#maxlength' => '10000',
+			);
+
+			if(!$items) {
+				$element[] = _hero_field_widget_form_linkfield();
+			}
+			else {
+				foreach($items as $delta => $values) {
+					$element[] = _hero_field_widget_form_linkfield($values, $delta);
+				}
+			}
+
+      return $element;
+    case 'translation_field':
+			$element += array(
+				'#type' => 'fieldset',
+				'#element_validate' => array('hero_widget_translation_field_validate'),
+			);
+
+			if(!$items) {
+				$element['items'][] = _hero_field_widget_form_translation_field();
+			}
+			else {
+				foreach($items as $delta => $values) {
+					$element['items'][] = _hero_field_widget_form_translation_field($values, $delta, $element);
+				}
+			}
+
+			if($field['cardinality'] == FIELD_CARDINALITY_UNLIMITED) {
+				$element += _hero_field_widget_form_add_another('translation_field', $items);
+			}
+
+      return $element;
+    case 'responsive_image':
+			$element += array(
+				'#type' => 'image',
+				'#element_validate' => array('hero_widget_multifield_validate'),
+			);
+      return $element;
+  }
+}
+
+function _hero_field_widget_form_linkfield($values = array(), $delta = NULL) {
+	return array(
+		'#type' => 'item',
+		'linkfield_text' => array(
+			'#title' => 'Text',
+			'#type' => 'textfield',
+			'#default_value' => isset($values['text']) ? $values['text'] : '',
+		),
+		'linkfield_url' => array(
+			'#type' => 'textfield',
+			'#title' => 'url',
+			'#default_value' => isset($values['url']) ? $values['url'] : '',
+		),
+		'more_options' => array(
+			'#type' => 'fieldset',
+			'#title' => 'More Options',
+			'#collapsible' => TRUE,
+			'#collapsed' => TRUE,
+			'linkfield_title' => array(
+				'#type' => 'textfield',
+				'#title' => 'Title',
+				'#default_value' => isset($values['title']) ? $values['title'] : '',
+			),
+			'linkfield_target' => array(
+				'#type' => 'select',
+				'#title' => 'Target',
+				'#options' => array('' => 'Same Window', '_blank' => 'New Window'),
+				'#default_value' => isset($values['target']) ? $values['target'] : '',
+			),
+			'linkfield_class' => array(
+				'#type' => 'textfield',
+				'#title' => 'Special Classes',
+				'#default_value' => isset($values['class']) ? $values['class'] : '',
+			),
+		),
+	);
+}
+
+function hero_custom_theme() {
+  if (arg(0) == 'user') {
+    return variable_get('admin_theme');
+  }
+  if (arg(0) == 'json') {
+    return 'json';
+  }
+}
+
+/**
+ * Form element submission handler for 'hero_widget_multifield' widget.
+ */
+function hero_widget_linkfield_validate($element, &$form_state, $form) {
+  $values = $form_state['values'][$element['#field_name']][$element['#language']];
+  $items = array();
+  foreach ($values as $value) {
+    $items[] = array(
+    	'text' => $value['linkfield_text'],
+    	'url' => $value['linkfield_url'],
+    	'title' => $value['more_options']['linkfield_title'],
+    	'target' => $value['more_options']['linkfield_target'],
+    	'class' => $value['more_options']['linkfield_class'],
+    	'value' => 'null', // srsly drupal, get it sorted mate...
+    );
+  }
+
+  form_set_value($element, $items, $form_state);
+}
+
+function _hero_field_widget_form_translation_field($values = array(), $delta = NULL, $element = NULL) {
+	return array(
+		'#type' => 'item',
+		'translation_string' => array(
+			'#title' => 'Translation String',
+			'#type' => 'textarea',
+			'#default_value' => isset($values['value']) ? $values['value'] : '',
+		),
+		'translation_context' => array(
+			'#type' => 'textfield',
+			'#title' => 'Context',
+			'#description' => t('Add a unique contextual identifier for this string, you can add up to three sections using a colon (:) as a separator, i.e., links:column_1:item_1, or header:text:main.'),
+			'#default_value' => isset($values['context']) ? $values['context'] : '',
+		),
+		'translation_existing_context' => array(
+			'#type' => 'hidden',
+			'#value' => isset($values['context']) && isset($element['#entity']) ? $element['#entity']->title .':'. $values['context'] : '',
+		),
+	);
+}
+
+/**
+ * Form element submission handler for 'hero_widget_multifield' widget.
+ */
+function hero_widget_translation_field_validate($element, &$form_state, $form) {
+  $json_values = json_decode($form_state['values'][$element['#field_name']][$element['#language']]['json_data']);
+  $values = array();
+  $contexts = array();
+  foreach ($json_values as $index => $json_value) {
+  	foreach($json_value as $key => $value) {
+  		if(strpos($key, 'translation_string') || strpos($key, 'translation_context')) {
+  		$value_key = strpos($key, 'translation_string') ? 'translation_string' : 'translation_context';
+			if($value_key == 'translation_string' && !$value) break;
+				$values[$index][$value_key] = check_plain(decode_entities(trim($value)));
+			}
+			if(strpos($key, 'translation_existing_context')) {
+				$contexts[$index] = $value;
+			}
+    }
+  }
+  $items = array();
+  foreach ($values as $index => $value) {
+  	// compile the items array
+    $items[] = array(
+    	'text' => 'null', // needed because Drupal can't handle it, specifically in hook_field_schema, required columns apply to all fields
+    	'url' => 'null', 	// created by the same module, despite the fact that the data isn't actually stored
+    	'value' => decode_entities($value['translation_string']),
+    	'context' => decode_entities($value['translation_context']),
+    );
+    $context = $form_state['values']['title'];
+    $context .= !empty($value['translation_context']) ? ':'. $value['translation_context'] : '';
+    if($context != $contexts[$index]) {
+    	// update the string context
+    	i18n_string_update_context($contexts[$index], $context);
+    }
+    // add the translation to the translation interface
+    i18n_string_update($context, $value['translation_string']);
+  }
+
+  form_set_value($element, $items, $form_state);
+}
+
+function _hero_field_widget_form_add_another($field_name, $items = array()) {
+	return array(
+		'json_data' => array(
+			'#type' => 'hidden',
+			'#attributes' => array(
+				'class' => array('hero-add-another-data'),
+			),
+			'#default_value' => json_encode($items),
+		),
+		'add_another' => array(
+			'#type' => 'submit',
+			'#title' => 'Add Another',
+			'#attributes' => array(
+				'class' => array('hero-add-another-field'),
+			),
+			'#value' => 'Add Another',
+		),
+	);
+}
+
+function hero_preprocess_page(&$vars) {
+  // if an ajax request has been made, get the json
+  /*
+  if(isset($_REQUEST['heroajax']) && $_REQUEST['heroajax'] == 'true') {
+  	$regions = array();
+  	foreach($vars['page'] as $key => $region) {
+  		$regions[$key] = render($region);
+  	}
+  	$regions['messages'] = drupal_get_messages();
+  	print json_encode($regions);
+  	exit();
+  }
+  */
+}
+
+function hero_get_context_path() {
+
+	// build the context path
+  $path = drupal_is_front_page() ? '/' : '/'. drupal_get_path_alias($_GET['q']);
+	// first check the cache
+	$path_map = cache_get('path_map');
+	$path_map = isset($path_map->data) ? $path_map->data : array();
+	if(!empty($path_map->data[$path])) return $path_map->data[$path];
+	// not in the cache, let's figure out what to use
+	$check_path = '';
+  if(!_i18n_context('Meta:'. $path .':title')) { // no translation?
+  	for($i = count(arg($path)); $i >= 0; $i--) {
+			$check_path = '/'. arg($i, drupal_get_path_alias($_GET['q']));
+			if(_i18n_context('Meta:'. $check_path .':title')) break;
+  	}
+  }
+  else {
+  	$check_path = $path;
+  }
+
+	// add to the path map
+  $path_map[$path] = $check_path;
+  // store it in the cache
+  cache_set('path_map', $path_map);
+  // return the path
+  return $check_path;
+
+}
+
+/**
+ * Form element validation handler for 'hero_widget_multifield' widget.
+ */
+function hero_widget_multifield_validate($element, &$form_state, $form) {
+  $values = array_map('trim', explode(',!', $element['#value']));
+  $items = array();
+  foreach ($values as $value) {
+    $items[] = array('value' => $value);
+  }
+  form_set_value($element, $items, $form_state);
+}
+
+/**
+ * Implements hook_field_is_empty().
+ */
+function hero_field_is_empty($item, $field) {
+  if (empty($item['text']) || empty($item['url'])) {
+    return TRUE;
+  }
+  return FALSE;
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function hero_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+
+  switch ($display['type']) {
+    case 'link':
+      foreach ($items as $delta => $values) {
+        $element[$delta] = array(
+        	'#markup' => l($values['text'], ltrim($values['url'], '/'), array(
+        		'attributes' => array(
+							'title' => isset($values['title']) ? $values['title'] : NULL,
+							'target' => isset($values['target']) ? $values['target'] : NULL,
+							'class' => isset($values['class']) ? $values['class'] : NULL,
+        		)
+        	))
+        );
+      }
+      break;
+  }
+
+  return $element;
+}

@@ -1,0 +1,6 @@
+name = cinder
+description = Cinder: Custom blocks manager for Polaris
+core = 7.x
+package = "Polaris Custom Modules"
+dependencies[] = polaris
+files[] = cinder.module

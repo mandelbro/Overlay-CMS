@@ -1,0 +1,14 @@
+name = polaris
+description = General helper module for Polaris
+core = 7.x
+package = "Polaris Custom Modules"
+
+files[] = polaris.module
+
+scripts[] = js/multifield.js
+scripts[] = js/carousel.js
+scripts[] = js/activeLink.js
+scripts[] = js/hoverEnabler.js
+
+stylesheets[all][] = css/multifield.css
+stylesheets[all][] = css/carousel.css

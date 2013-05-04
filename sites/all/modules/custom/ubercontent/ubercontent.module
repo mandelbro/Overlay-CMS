@@ -1,0 +1,473 @@
+<?php
+/**
+ *  ubercontent - Custom content type manager
+ *  Created by: mandelbro
+ */
+/**
+ * Implementation of hook_boot().
+ */
+function ubercontent_boot() {
+}
+
+/**
+ *  Implementation of hook_init
+ */
+function ubercontent_init() {
+	// Include all .inc files from the include folder
+	_include_folder(_get_module_dir('ubercontent') .'/include');
+	_include_folder(_get_module_dir('ubercontent') .'/content-types');
+
+}
+
+/**
+ *  Implementation of hook_permission
+ */
+function ubercontent_permission() {
+	// All permissions handled by the Node module
+}
+
+/**
+ *  Implementation of hook_theme()
+ */
+function ubercontent_theme() {
+  return array(
+    'ubercontent_no_content' => array(
+    	'template' => 'templates/no-content',
+    	'variables' => array(
+    		'type' => NULL,
+    	),
+    ),
+    'ubercontent_node_list' => array(
+    	'variables' => array(
+    		'type' => 'page',
+    		'view_mode' => NULL,
+    		'conditions' => array(),
+    		'field_conditions' => array(),
+    		'reset' => FALSE,
+    		'range' => NULL,
+    		'order' => NULL,
+    		'field_order' => NULL,
+    	),
+    ),
+    'ubercontent_node_view' => array(
+    	'variables' => array(
+    		'type' => 'page',
+    		'view_mode' => NULL,
+    		'conditions' => array(),
+    		'field_conditions' => array(),
+    		'reset' => FALSE,
+    		'range' => NULL,
+    		'order' => NULL,
+    		'field_order' => NULL,
+    	),
+    ),
+  );
+}
+
+/**
+ *  Implementation of hook_menu
+ */
+function ubercontent_menu() {
+	$items = array();
+
+	/*
+	$items['node/%node/screenshots'] = array(
+		'type' => MENU_CALLBACK,
+		'page callback' => 'ubercontent_node_screenshots',
+		'page arguments' => array(1),
+		'access arguments' => array('access content'),
+		'file' => 'content-types/ubercontent.bundle.inc'
+	);
+	*/
+
+  $items['ajax/node-list'] = array(
+    'type' => MENU_CALLBACK,
+    'page callback' => 'ubercontent_ajax_node_list',
+    'access arguments' => array('access content'),
+    'file' => 'include/ajax.inc'
+  );
+
+	$items['admin/config/ubercontent'] = array(
+    'title' => 'Ubercontent Admin',
+		'page callback' => 'ubercontent_admin_router',
+		'page arguments' => array(),
+		'access arguments' => array('access administration pages'),
+    'description' => 'Admin control panel for Ubercontent module.',
+    'weight' => 11,
+    'type' => MENU_NORMAL_ITEM,
+	);
+
+	$items['admin/config/ubercontent/run-install'] = array(
+    'title' => 'Run Install',
+		'page callback' => 'ubercontent_admin_router',
+		'page arguments' => array(3),
+		'access arguments' => array('access administration pages'),
+    'description' => 'Updates fastspring pricing maps.',
+    'weight' => 12,
+    'type' => MENU_NORMAL_ITEM,
+	);
+
+	return $items;
+}
+
+/**
+ * theme_ubercontent_node_list()
+ * Theme function for ubercontent_node_list theme
+ * Implements EntityFieldQuery for specifying node filter parameters
+ *
+ * Note: You should probably just use Views for better flexibility...
+ */
+function theme_ubercontent_node_list(&$variables) {
+	$type = node_type_load($variables['type']);
+	// combine conditions, should only have type
+	$conditions = array('type' => $type->type) + $variables['conditions'];
+	// create a new instance of EntityFieldQuery
+	$query = new EntityFieldQuery();
+	// only get nodes
+	$query->entityCondition('entity_type', 'node');
+	// apply all conditions
+	if($conditions) {
+		foreach($conditions as $condition => $value) {
+			$query->propertyCondition($condition, (is_array($value) ? $value['value'] : $value), (is_array($value) ? $value['operator'] : '='));
+		}
+	}
+	// apply all field conditions
+	if(isset($variables['field_conditions'])) {
+		foreach($variables['field_conditions'] as $field => $condition) {
+			$query->fieldCondition($field, isset($condition['key']) ? $condition['key'] : 'value', $condition['value'], (isset($condition['operator']) ? $condition['operator'] : '='));
+		}
+	}
+	// apply range
+	if(is_array($variables['range'])) {
+		$query->range(isset($variables['range']['start']) ? $variables['range']['start'] : 0, $variables['range']['end'] );
+	}
+	// apply order
+	if($variables['order']) {
+		if($variables['order'] == 'random') { // provide support for random sorting
+			$query->addTag('random');
+		}
+		else {
+			// apply order
+			$query->propertyOrderBy($variables['order']);
+		}
+	}
+
+	// apply order
+	if(isset($variables['field_order']) && $field_order = $variables['field_order']) {
+		if(isset($field_order[0])) {
+			$field_order_array = $field_order;
+			foreach($field_order_array as $field_order) {
+				$query->fieldOrderBy($field_order['field'], (isset($field_order['column']) ? $field_order['column'] : 'value'), isset($field_order['direction']) ? $field_order['direction'] : NULL);
+			}
+		}
+		else {
+			// apply order
+			$query->fieldOrderBy($field_order['field'], (isset($field_order['column']) ? $field_order['column'] : 'value'), isset($field_order['direction']) ? $field_order['direction'] : NULL);
+		}
+	}
+
+	$result = $query->execute();
+
+	if (isset($result['node'])) { // list the nodes
+		$nodes = node_load_multiple(array_keys($result['node']));
+		return array(
+			'#prefix' => isset($variables['title']) ? '<div class="node-list-name">'. $variables['title'] .'</div>' : NULL,
+			'node_list' => node_view_multiple($nodes, $variables['view_mode']),
+		);
+	}
+	else {
+		return array(
+			'#prefix' => isset($variables['title']) ? '<div class="node-list-name">'. $variables['title'] .'</div>' : NULL,
+			'#markup' => theme('ubercontent_no_content', array('type' => $type)),
+		);
+	}
+}
+
+/**
+ * theme_ubercontent_node_list()
+ * Theme function for ubercontent_node_list theme
+ * Implements EntityFieldQuery for specifying node filter parameters
+ *
+ * Note: You should probably just use Views for better flexibility...
+ */
+function theme_ubercontent_node_view(&$variables) {
+	$type = node_type_load($variables['type']);
+	// combine conditions, should only have type
+	$conditions = array('type' => $type->type) + $variables['conditions'];
+	// create a new instance of EntityFieldQuery
+	$query = new EntityFieldQuery();
+	// only get nodes
+	$query->entityCondition('entity_type', 'node');
+	// apply all conditions
+	if($conditions) {
+		foreach($conditions as $condition => $value) {
+			$query->propertyCondition($condition, (is_array($value) ? $value['value'] : $value), (is_array($value) ? $value['operator'] : '='));
+		}
+	}
+	// apply all field conditions
+	if(isset($variables['field_conditions'])) {
+		foreach($variables['field_conditions'] as $field => $condition) {
+			$query->fieldCondition($field, isset($condition['key']) ? $condition['key'] : 'value', $condition['value'], (isset($condition['operator']) ? $condition['operator'] : '='));
+		}
+	}
+	// apply range
+	if(is_array($variables['range'])) {
+		$query->range(isset($variables['range']['start']) ? $variables['range']['start'] : 0, $variables['range']['end'] );
+	}
+	// apply order
+	if($variables['order']) {
+		if($variables['order'] == 'random') { // provide support for random sorting
+			$query->addTag('random');
+		}
+		else {
+			// apply order
+			$query->propertyOrderBy($variables['order']);
+		}
+	}
+
+	// apply order
+	if(isset($variables['field_order']) && $field_order = $variables['field_order']) {
+		// apply order
+		$query->fieldOrderBy($field_order['field'], (isset($field_order['column']) ? $field_order['column'] : 'value'), isset($field_order['direction']) ? $field_order['direction'] : NULL);
+	}
+
+	$result = $query->execute();
+
+	if (isset($result['node'])) { // list the nodes
+		$nodes = node_load_multiple(array_keys($result['node']));
+		return array(
+			'#prefix' => isset($variables['title']) ? '<div class="node-list-name">'. $variables['title'] .'</div>' : NULL,
+			'node_list' => node_view_multiple($nodes, $variables['view_mode']),
+		);
+	}
+	else {
+		return array();
+	}
+}
+
+/**
+ * Implementation of hook_query_TAG_alter
+ */
+
+function ubercontent_query_random_alter($query) {
+  $query->orderRandom();
+}
+
+/**
+ * template preprocess function for the ubercontent_no_content theme
+ */
+function template_preprocess_ubercontent_no_content(&$variables) {
+
+	$variables['type_name'] = $variables['type']->name;
+
+}
+
+/**
+ *  Implementation of hook_node_type_insert
+ *    Add fields to custom node types
+ */
+function ubercontent_node_type_insert($info) {
+	// check if a function exists in the ubercontent namespace for the type
+	$fn = "{$info->module}_{$info->type}_node_type_update";
+	if(function_exists($fn)) {
+		$fn($info);
+	}
+}
+
+/**
+ *  Implementation of hook_node_type_update
+ *    Add fields to custom node types
+ */
+function ubercontent_node_type_update($info) {
+	// check if a function exists in the ubercontent namespace for the type
+	$fn = "{$info->module}_{$info->type}_node_type_update";
+	if(function_exists($fn)) {
+		$fn($info);
+	}
+}
+
+/**
+ *  Implementation of hook_node_insert
+ *    Callback for insertion of an ubercontent node
+ */
+function ubercontent_node_insert($node) {
+	$info = node_type_load($node->type);
+	// check if a function exists in the ubercontent namespace for the type
+	$fn = "{$info->module}_{$info->type}_node_insert";
+	if(function_exists($fn)) {
+		$fn($node);
+	}
+
+}
+
+/**
+ *  Implementation of hook_node_update
+ *    Callback for update of an ubercontent node
+ */
+function ubercontent_node_update($node) {
+	$info = node_type_load($node->type);
+	// check if a function exists in the ubercontent namespace for the type
+	$fn = "{$info->module}_{$info->type}_node_update";
+	if(function_exists($fn)) {
+		$fn($node);
+	}
+
+}
+
+/**
+ *  Implementation of hook_node_delete
+ *    Callback for deletion of an ubercontent node
+ */
+function ubercontent_node_delete($node) {
+	$info = node_type_load($node->type);
+	// check if a function exists in the ubercontent namespace for the type
+	$fn = "{$info->module}_{$info->type}_node_delete";
+	if(function_exists($fn)) {
+		$fn($node);
+	}
+
+}
+
+/**
+ * Implements hook_node_search_result
+ */
+function ubercontent_node_search_result($node) {
+	// check if a function exists in the ubercontent namespace for the type
+	$info = node_type_load($node->type);
+	$fn = "{$info->module}_{$info->type}_node_search_result";
+	if(function_exists($fn)) {
+		$fn($node);
+	}
+}
+
+/**
+ *  Implementation of hook_node_load
+ *    Callback for loading of an ubercontent node
+ */
+function ubercontent_node_load($nodes, $types) {
+
+	foreach($nodes as $nid => $node) {
+		$info = node_type_load($node->type);
+		// check if a function exists in the ubercontent namespace for the type
+		$fn = "{$info->module}_{$info->type}_node_load";
+		if(function_exists($fn)) {
+			$fn($node);
+		}
+	}
+
+}
+
+/**
+ *  Implementation of hook_node_view
+ *    Handles pre-view rendering for ubercontent node types
+ */
+function ubercontent_node_view($node, $view_mode, $langcode) {
+
+	$info = node_type_load($node->type);
+	// check if a function exists in the ubercontent namespace for the type
+	$fn = "{$info->module}_{$info->type}_node_view";
+	if(function_exists($fn)) {
+		$fn($node, $view_mode, $langcode);
+	}
+
+}
+
+function ubercontent_preprocess_html(&$variables) {
+  $alias = drupal_lookup_path('alias', $_GET['q']);
+
+  // No sense loading this for every request.
+  if($alias == 'whyintego') {
+    drupal_add_css(drupal_get_path('theme', 'ubertheme') . '/css/whyintego.css');
+    drupal_add_js(drupal_get_path('theme', 'ubertheme') . '/js/whyintego.js');
+  }
+
+  if($alias == 'threats') {
+    drupal_add_css(drupal_get_path('theme', 'ubertheme') . '/css/threats.css');
+  }
+}
+
+function ubercontent_preprocess_node(&$variables) {
+  $alias = drupal_lookup_path('alias', $_GET['q']);
+	$node = $variables['node'];
+	$info = node_type_load($node->type);
+	// check if a function exists in the ubercontent namespace for the type
+	$fn = "{$info->module}_{$info->type}_preprocess_node";
+	if(function_exists($fn)) {
+		$fn($variables);
+	}
+
+	// define a template suggestion for the node type
+	$variables['theme_hook_suggestions'][] = 'node__type__'. $node->type;
+
+	if($variables['view_mode'] == 'full') {
+		// define a template suggestion for the node type
+		$variables['theme_hook_suggestions'][] = 'node__type__'. $node->type .'__full';
+	}
+
+  if($alias == 'get-serial') {
+    $variables['form'] = drupal_get_form('netupdate_get_serial_form');
+  }
+}
+
+/**
+ * Implements hook_i18n_string_info
+ */
+function ubercontent_i18n_string_info() {
+
+	$groups = array();
+	// create a new instance of EntityFieldQuery
+	$query = new EntityFieldQuery();
+	// only get nodes
+	$query->entityCondition('entity_type', 'node');
+	$query->propertyCondition('type', 'translate');
+
+	$result = $query->execute();
+
+	if (isset($result['node'])) { // list the nodes
+		$nodes = node_load_multiple(array_keys($result['node']));
+		foreach($nodes as $node) {
+			$groups[$node->title] = array(
+				'title' => t($node->title),
+			);
+		}
+	}
+
+	return $groups;
+
+}
+
+function ubercontent_reinstall() {
+	_run_install('ubercontent');
+}
+
+/**
+ * Implements hook_i18n_string_list
+ */
+function ubercontent_i18n_string_list($group) {
+	$strings = array();
+	// create a new instance of EntityFieldQuery
+	$query = new EntityFieldQuery();
+	// only get nodes
+	$query->entityCondition('entity_type', 'node');
+	$query->propertyCondition('type', 'translate');
+
+	$result = $query->execute();
+
+	if (isset($result['node'])) { // list the nodes
+		$nodes = node_load_multiple(array_keys($result['node']));
+		foreach($nodes as $node) {
+			if($node->title != $group) continue;
+			// get the numerically indexed array of strings
+			$input_strings = field_get_items('node', $node, 'string');
+			foreach($input_strings as $i => $string) {
+				$context = $node->title;
+				$context .= !empty($string['context']) ? ':'. $string['context'] : '';
+				// add the translation to the translation interface
+				i18n_string_update($context, $string['value']);
+				$strings[$group][$i][$i][$i][$i] = $string['value'];
+			}
+		}
+	}
+
+	return $strings;
+}

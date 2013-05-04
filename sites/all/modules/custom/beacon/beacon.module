@@ -1,0 +1,115 @@
+<?php
+/**
+ *  Cinder - Custom blocks manager for Polaris
+ *  Created by: mandelbro
+ */
+
+// get include files
+_include_folder(_get_module_dir('beacon') .'/include');
+
+/**
+ *  Implementation of hook_init
+ */
+function beacon_init() {
+	include_once(drupal_get_path('module', 'contact') .'/contact.pages.inc');
+}
+
+/**
+ *  Implementation of hook_menu
+function beacon_menu() {
+}
+ */
+
+/** 
+ * Implementation of hook_block_info
+ * Block Definition List
+		
+		Request demo contact form block
+			- Request Demo (content region)
+		
+		Resources contact form block
+			- Resources (content region)
+		
+		Contact Form Block
+			- Contact (content region)
+ */
+function beacon_block_info() {
+
+  // define block for the Request Demo Contact Form Block
+  $blocks['request_demo_form'] = array(
+    'info'        => t('Request Demo Contact Form'),
+    'status'      => TRUE,
+    'region'      => 'content',
+    'weight'      => 10,
+    //'visibility'  => 0, // show this block on all pages except those listed below
+    'visibility'  => 1, // show this block only on the pages listed below
+    'pages'				=> "request-demo\n",
+  );
+
+  // define block for the Request Demo Contact Form Block
+  $blocks['resources_form'] = array(
+    'info'        => t('Resources Contact Form'),
+    'status'      => TRUE,
+    'region'      => 'content',
+    'weight'      => 5,
+    //'visibility'  => 0, // show this block on all pages except those listed below
+    'visibility'  => 1, // show this block only on the pages listed below
+    'pages'				=> "resources\n",
+  );
+
+  // define block for the Contact Form Block
+  $blocks['contact_form'] = array(
+    'info'        => t('Sitewide Contact Form'),
+    'status'      => TRUE,
+    'region'      => 'content',
+    'weight'      => 5,
+    //'visibility'  => 0, // show this block on all pages except those listed below
+    'visibility'  => 1, // show this block only on the pages listed below
+    'pages'				=> "contact\n",
+  );
+
+  return $blocks;
+}
+
+/**
+ *  Implementation of hook_block_view
+ */
+function beacon_block_view($delta = '') {
+	// build the beacon block function
+	$fn = "beacon_{$delta}_block";
+	// return the form callback function if it exists
+	if(function_exists($fn)) {
+		return array('content' => $fn());
+	}
+	
+}
+
+/**
+ * Implementation of hook_form_alter
+ */
+function beacon_form_alter(&$form, &$form_state, $form_id) {
+
+	if($form_id == 'contact_site_form') { // contact form detected
+		// check if it is a supported category
+		$fn = 'beacon_'. str_replace('-', '_', arg(1, $form['#action'])) .'_form';
+		if(function_exists($fn)) { // function found
+			$fn($form, $form_state);
+		}
+	}
+}
+
+/**
+ * Implementation of hook_form_alter
+ */
+function beacon_mail_alter(&$message) {
+	
+	// check for the contact form email id, otherwise bail
+	if($message['id'] != 'contact_page_mail') return;
+	
+	// build the name of the mail alter function beacon_hook_form_mail(&$message)
+	$fn = 'beacon_'. $message['params']['beacon_form'] .'_form_mail';
+	
+	// run the function, the messages variable should be received as a reference
+	$fn($message);
+
+}

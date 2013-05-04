@@ -1,0 +1,9 @@
+name = beacon
+description = Beacon: Custom contact form manager for Polaris
+core = 7.x
+package = "Polaris Custom Modules"
+dependencies[] = polaris
+dependencies[] = contact
+files[] = beacon.module
+files[] = beacon.install
+scripts[] = js/beacon-form.js

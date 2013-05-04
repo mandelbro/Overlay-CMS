@@ -1,0 +1,163 @@
+.pharmaceuticals-imagemap {
+	display: block;
+	background-image: url(../images/case-studies/pharmaceuticals/imagemap.png);
+	background-repeat: no-repeat;
+}
+
+.pharmaceuticals-case-study-section {
+}
+
+	.pharmaceuticals-case-study-section-header {
+	}
+	
+		#pharmaceuticals-case-study-section-header-content {
+		}
+	
+			#pharmaceuticals-case-study-section-header-image {
+			}
+		
+			#pharmaceuticals-case-study-header-logo {
+			}
+			
+			.pharmaceuticals-case-study-section-header .case-study-section-header-curved-border .container {
+				display: block;
+				background-image: url(../images/case-studies/pharmaceuticals/imagemap.png);
+				background-repeat: no-repeat;
+				background-position: 0 -96px;
+				min-height: 100%;
+			}
+		
+	#pharmaceuticals-case-study-intro {
+		height: 402px;
+	}
+	
+		#pharmaceuticals-case-study-intro .full-width {
+			height: 402px;
+		}
+		
+	.no-borderradius #pharmaceuticals-case-study-intro {
+		height: 349px;
+	}
+	
+		.no-borderradius #pharmaceuticals-case-study-intro .full-width {
+			height: 349px;
+		}
+	
+		#pharmaceuticals-case-study-intro .case-study-content-content-inner {
+			position: relative;
+			background-position: 0 -135px;
+			height: 402px;
+			z-index: 200;
+		}
+	
+		.no-borderradius #pharmaceuticals-case-study-intro .case-study-content-content-inner {
+			background-position: 0 -188px;
+			height: 349px;
+		}
+			
+		#pharmaceuticals-case-study-intro .case-study-content-textbox {
+			width: 100%;
+			position: relative;
+			margin-top: -30px;
+			padding: 0 0 0 5%;
+			display: table-cell;
+			vertical-align: middle;
+			height: 402px;
+		}
+	
+		.no-borderradius #pharmaceuticals-case-study-intro .case-study-content-textbox {
+			height: 349px;
+		}
+			
+		#pharmaceuticals-case-study-intro .case-study-content-textbox-title {
+			width: 65%;
+			margin-left: 35%;
+		}
+			
+		#pharmaceuticals-case-study-intro .case-study-content-textbox-text {
+			width: 65%;
+			margin-left: 35%;
+		}
+		
+	#pharmaceuticals-case-study-intro-quote {
+		height: 390px;
+	}
+		
+		#pharmaceuticals-case-study-intro-quote .full-width {
+			background: #f9f9f9;
+			/* box-shadow */
+			-webkit-box-shadow: inset -100px 0px 300px 20px rgba(0, 0, 0, 0.05),
+													inset 100px 0px 300px 20px rgba(0, 0, 0, 0.05);
+			-moz-box-shadow: inset -100px 0px 300px 20px rgba(0, 0, 0, 0.05),
+													inset 100px 0px 300px 20px rgba(0, 0, 0, 0.05);
+			-ms-box-shadow: inset -100px 0px 300px 20px rgba(0, 0, 0, 0.05),
+													inset 100px 0px 300px 20px rgba(0, 0, 0, 0.05);
+			-o-box-shadow: inset -100px 0px 300px 20px rgba(0, 0, 0, 0.05),
+													inset 100px 0px 300px 20px rgba(0, 0, 0, 0.05);
+			box-shadow: inset -100px 0px 300px 20px rgba(0, 0, 0, 0.05),
+													inset 100px 0px 300px 20px rgba(0, 0, 0, 0.05);
+		}
+		
+		#pharmaceuticals-case-study-intro-quote .case-study-client-quote {
+			height: 390px;
+		}
+		
+		#pharmaceuticals-case-study-intro-quote .testimonial-node-body {
+			height: 390px;
+		}
+		
+	#pharmaceuticals-case-study-polaris-system {
+		height: 450px;
+		background-position: right -546px;
+		position: relative;
+	}
+			
+		#pharmaceuticals-case-study-polaris-system .case-study-content-textbox {
+			width: 56%;
+			position: absolute;
+			left: 0;
+			top: 20%;
+			margin-left: -2%;
+		}
+	
+	#pharmaceuticals-case-study-polaris-system-quote {
+		height: 426px;
+	}
+		
+		#pharmaceuticals-case-study-polaris-system-quote .full-width {
+			background: #fff url(../images/case-studies/shadow-bottom.png) no-repeat center top;
+			/* box-shadow */
+			-webkit-box-shadow: inset 0 12px 25px -10px rgba(0,0,0,.1);
+			-moz-box-shadow: inset 0 12px 25px -10px rgba(0,0,0,.1);
+			-ms-box-shadow: inset 0 12px 25px -10px rgba(0,0,0,.1);
+			-o-box-shadow: inset 0 12px 25px -10px rgba(0,0,0,.1);
+			box-shadow: inset 0 12px 25px -10px rgba(0,0,0,.1);
+		}
+			
+			#pharmaceuticals-case-study-polaris-system-quote .case-study-client-quote {
+				height: 426px;
+			}
+		
+	#pharmaceuticals-case-study-outtro {
+		height: 386px;
+	}
+	
+		#pharmaceuticals-case-study-outtro .full-width {
+			height: 386px;
+		}
+	
+		#pharmaceuticals-case-study-outtro .case-study-content-content-inner {
+			position: relative;
+			background-position: 80% -1006px;
+			height: 386px;
+			display: table-cell;
+			vertical-align: middle;
+			width: 80%;
+			max-width: none;
+			padding: 0 20%;
+		}
+			
+		#pharmaceuticals-case-study-outtro .case-study-content-textbox {
+			text-align: center;
+			width: 55%;
+		}

@@ -1,0 +1,17 @@
+name = hero
+description = A superhero utility belt for Drupal module developers
+core = 7.x
+package = "UI Site Building"
+
+files[] = hero.module
+files[] = hero.install
+
+#scripts[] = js/multifield.js
+#scripts[] = js/carousel.js
+#scripts[] = js/hover.js
+#scripts[] = js/scroll.js
+#scripts[] = js/ajax-form.js
+scripts[] = js/jquery/jquery.easing.js
+
+stylesheets[all][] = css/multifield.css
+#stylesheets[all][] = css/carousel.css

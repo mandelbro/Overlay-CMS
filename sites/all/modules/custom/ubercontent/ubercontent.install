@@ -1,0 +1,102 @@
+<?php
+
+/**
+ * @file
+ * Install file for ubercontent module.
+ */
+
+/**
+ * Implements hook_install().
+ * - Add the body field.
+ * - Configure the body field.
+ * - Create the company name field.
+ */
+function ubercontent_install() {
+
+	// Compile an array of custom node types
+	$types = array(
+    array(
+      'type' => 'page',
+      'name' => t('Page'),
+      'base' => 'node_content',
+      'module' => 'ubercontent',
+			'title_label' => 'Page Title',
+			'body_label' => 'Body',
+      'description' => t("Basic page templates, use with blocks to add extra awesomeness."),
+      'custom' => 1,
+      'modified' => 1,
+      'disabled' => 0,
+      'locked' => 0,
+    ),
+    array(
+      'type' => 'translate',
+      'name' => t('Translation Group Importer'),
+      'base' => 'node_content',
+      'module' => 'ubercontent',
+			'title_label' => 'Translation Group',
+      'description' => t("Translation bulk string importer."),
+      'custom' => 1,
+      'modified' => 1,
+      'disabled' => 0,
+      'locked' => 0,
+    ),
+    array(
+      'type' => 'press_release',
+      'name' => t('Press Release'),
+      'base' => 'node_content',
+      'module' => 'ubercontent',
+      'title_label' => 'Title',
+      'description' => t('A press release.'),
+      'custom' => 1,
+      'modified' => 1,
+      'disabled' => 0,
+      'locked' => 0
+    ),
+    array(
+      'type' => 'job',
+      'name' => t('Job Post'),
+      'base' => 'node_content',
+      'title_label' => 'Title',
+      'description' => t('A job posting.'),
+      'custom' => 1,
+      'modified' => 1,
+      'disabled' => 0,
+      'locked' => 0
+    )
+	);
+
+	// add the node types
+	ubercontent_save_node_types($types);
+
+
+	// add taxonomy vocabulary
+	$vocabs = array(
+	/*
+		'example' => array( // can be accessed by variable_get('example_vocabulary')
+			'vocabulary' => array(
+				'name' => 'Example',
+				'machine_name' => 'example',
+				'description' => 'Example vocabulary created by ubercontent',
+				'module' => 'ubercontent',
+			),
+			'terms' => array(
+				array(
+					'name' => 'Bacon',
+				),
+				array(
+					'name' => 'Scarf',
+				),
+				array(
+					'name' => 'Arcade Fire',
+				),
+				array(
+					'name' => '*sigh* okay.',
+				),
+			),
+		),
+		*/
+	);
+
+	ubercontent_save_taxonomy_vocabs($vocabs);
+
+}

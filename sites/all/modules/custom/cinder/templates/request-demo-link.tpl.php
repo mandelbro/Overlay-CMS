@@ -1,0 +1,1 @@
+<a id="request-demo-link" class="polaris-plus-link large" href="<?php print $href; ?>"><?php print $text; ?><span class="polaris-<?php print $icon; ?>"></span></a>

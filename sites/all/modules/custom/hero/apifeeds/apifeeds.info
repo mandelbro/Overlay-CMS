@@ -1,0 +1,11 @@
+name = apifeeds
+description = A module for managing api feed integration
+core = 7.x
+package = "UI Site Building"
+dependencies[] = hero
+
+files[] = apifeeds.module
+files[] = apifeeds.install
+
+scripts[] = js/feeds.js
+scripts[] = js/instagram.js

@@ -1,0 +1,141 @@
+/*
+ * IE CSS
+ *
+ * CSS targeted specifically for Internet Explorer for Windows.
+ *
+ * Properties starting with an underscore _ are for IE 5 and 6 only.
+ * Properties starting with head:first-child+body are for IE7 only.
+ * Properties with a child selector (>) or sibling selector (+) are for IE7 only.
+ *
+ */
+ 
+/* IE7 renders legends in nested fieldsets without a width. */
+fieldset legend {
+  +height: 1%;
+}
+
+/* IE renders absolute positioned legend where fieldset content starts. */
+fieldset .fieldset-legend {
+  left: 0;
+  top: 0;
+}
+
+/* IE renders monospace font too big. */
+code,
+pre,
+kbd {
+  font-size: 1em;
+}
+
+/* IE 6 */
+ul.menu li,
+ul.menu li a,
+ul.links li,
+ul.links li a,
+.action-links,
+#page {
+  _height: 1%;
+}
+#block-system-main ul.admin-list li a {
+  _height: 1px;
+  _position: relative;
+  _display: block;
+}
+#block-system-main ul.admin-list li div.description a {
+  _display: inline;
+}
+
+ul.tabs.primary {
+  +padding: 0;
+}
+ul.primary li,
+ul.primary li a,
+ul.primary li.active a {
+  +float: none !important;
+  +display: inline;
+}
+ul.primary li,
+ul.primary li a,
+ul.primary li a.active,
+ul.primary li a:active,
+ul.primary li a:visited,
+ul.primary li a:hover,
+ul.primary li.active a {
+  +zoom: 1;
+  +position: relative;
+}
+ul.admin-list li {
+  +position: static;
+}
+
+		
+#page-node-header-inner,
+.page-slideshow-slide {
+	display: table;
+	text-align: center;
+}
+
+#page-node-header-text,
+.page-slideshow-slide-text {
+}
+
+#page-node-header-text {
+	left: -17%;
+}
+
+.page-slideshow-slide-text {
+	left: -16%;
+}
+
+#page-node-header-text {
+	width: 66%;
+	padding: 60px 0 0 17%;
+}
+
+.page-slideshow-slide-text {
+	width: 68%;
+	padding: 0 0% 77px 16%;
+}
+
+#pharmaceuticals-case-study-outtro .case-study-content-content-inner {
+	position: relative;
+	background-position: 80% -1006px;
+	height: 386px;
+	display: table-cell;
+	vertical-align: middle;
+	width: 80%;
+	max-width: none;
+	padding: 0 20%;
+}
+	
+#pharmaceuticals-case-study-outtro .case-study-content-textbox {
+	width: 100%;
+	text-align: center;
+}
+	
+	#pharmaceuticals-case-study-outtro .case-study-content-textbox-title  {
+		width: 32%;
+	}
+	
+	#pharmaceuticals-case-study-outtro .case-study-content-textbox-text {
+		width: 32%;
+		display: block;
+	}
+
+.beacon-contact-form .form-text,
+.beacon-contact-form.contact .form-text,
+.beacon-contact-form.resources .form-text,
+.beacon-contact-form.request-demo .form-text {
+	height: 21px;
+	padding: 9px 10px 0;
+}
+		
+.beacon-contact-form.contact .form-submit {
+	height: 32px;
+	padding-top: 4px;
+}
+		
+.beacon-contact-form.resources .form-submit {
+	height: 32px;
+	padding-top: 4px;
+}

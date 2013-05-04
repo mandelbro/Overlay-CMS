@@ -1,0 +1,18 @@
+name = ursacontent
+description = Create custom content for the Polaris site
+core = 7.x
+package = "Polaris Custom Modules"
+dependencies[] = polaris
+dependencies[] = options
+dependencies[] = list
+dependencies[] = taxonomy
+dependencies[] = date
+
+files[] = ursacontent.module
+files[] = ursacontent.install
+
+stylesheets[all][] = css/shared.css
+stylesheets[all][] = css/financials.css
+stylesheets[all][] = css/information-technology.css
+stylesheets[all][] = css/pharmaceuticals.css
+stylesheets[all][] = css/industrials.css

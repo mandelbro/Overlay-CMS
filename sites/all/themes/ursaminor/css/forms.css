@@ -1,0 +1,418 @@
+/**
+ * All beacon forms
+ */
+.block-beacon {
+	position: relative;
+	z-index: 10;	
+}
+
+.beacon-contact-form {
+	background: #ebebeb;
+	font-family: "Alright Sans", sans-serif;
+	-webkit-perspective: 1000;
+	-webkit-transform: translate3d(0,0,0);
+	position: relative;
+	z-index: 10;
+}
+	
+	.beacon-contact-form label,
+	.beacon-contact-form .form-text,
+	.beacon-contact-form .form-textarea,
+	.beacon-contact-form .form-select {
+		font-size: .84em;
+		color: #898989;
+	}
+	
+	.beacon-contact-form .beacon-form-title-header {
+		font-size: 1.5em;
+	}
+	
+	.beacon-contact-form .beacon-form-title-subheader {
+		font-family: "Bitter", Georgia, serif;
+		font-size: 1.167em;
+		margin-bottom: 30px;
+	}
+	
+	.beacon-contact-form .form-item,
+	.beacon-contact-form .form-actions {
+		margin: 0 0 20px;
+	}
+	
+	.beacon-contact-form .form-required {
+		display: none;
+	}
+	
+	.beacon-contact-form .form-select {
+		background: #fff;
+		border: 1px solid #b7b7b7;
+		height: 30px;
+		color: #898989;
+		outline: none;
+	}
+	
+	.beacon-contact-form .form-text {
+		background: #fff;
+		border: none;
+		height: 30px;
+		color: #898989;
+		outline: none;
+	}
+		
+	.beacon-contact-form label {
+		margin-bottom: 4px;
+		outline: none;
+	}
+	
+	.beacon-contact-form .form-textarea {
+		padding: 10px;
+		height: 100px;
+		border: none;
+		resize: none;
+		outline: none;
+	}
+	
+	.beacon-contact-form .form-text,
+	.beacon-contact-form .form-textarea {
+		font-family: "Alright Sans", sans-serif;
+		/* border-radius */
+		-webkit-border-radius: 2px;
+		-moz-border-radius: 2px;
+		-ms-border-radius: 2px;
+		-o-border-radius: 2px;
+		border-radius: 2px;
+	}
+	
+	.beacon-contact-form .beacon-form-sent {
+		display: none;
+	}
+	
+	.beacon-contact-form .beacon-form-success-text {
+		display: block;
+		font-family: "Alright Sans Light", sans-serif;
+		padding: 170px 15%;
+		text-align: center;
+		font-size: 2.5em;
+		color: #959595;
+	}
+
+/**
+ * contact beacon form page
+ */
+#block-beacon-contact-form {
+	width: 70%;
+	float: left;
+}
+
+	.beacon-contact-form.contact {
+		padding: 24px 30px 4px;
+		/* border-radius */
+		-webkit-border-radius: 6px;
+		-moz-border-radius: 6px;
+		-ms-border-radius: 6px;
+		-o-border-radius: 6px;
+		border-radius: 6px;
+	}
+		
+		.beacon-contact-form .beacon-form-title-header {
+			line-height: 1.2em;
+			margin-bottom: 16px;
+		}
+		
+		.beacon-contact-form.contact .beacon-contact-form-left-column {
+			width: 48%;
+			float: left;
+		}
+		
+		.beacon-contact-form.contact .form-type-textfield,
+		.beacon-contact-form.contact .form-type-select {
+			width: 100%;
+		}
+		
+		.beacon-contact-form.contact .form-type-textarea,
+		.beacon-contact-form.contact .form-actions {
+			width: 48.5%;
+			float: right;
+			clear: right;
+			text-align: left;
+		}
+		
+		.beacon-contact-form.contact .form-actions {
+			text-align: right;
+		}
+		
+		.beacon-contact-form.contact .form-text {
+			width: 94%;
+			padding-left: 3%;
+			padding-right: 3%;
+			text-align: left;
+		}
+		
+		.beacon-contact-form.contact .form-select {
+			width: 100%;
+		}
+		
+		.beacon-contact-form.contact .form-textarea {
+			text-align: left;
+		}
+		
+		.beacon-contact-form.contact label {
+			text-align: left;
+		}
+		
+		.beacon-contact-form.contact .form-textarea {
+			height: 178px;
+		}
+		
+		.beacon-contact-form.contact .form-submit {
+			width: 90px;
+			height: 32px;
+			line-height: 32px;
+			background: url(../images/forms/imagemap.png) no-repeat 0 -76px;
+			border: none;
+			color: #fff;
+			font-size: 1.167em;
+			font-family: "Alright Sans", sans-serif;
+			text-transform: lowercase;
+			outline: none;
+		}
+		
+		.beacon-contact-form.contact .form-submit:hover {
+			background: url(../images/forms/imagemap.png) no-repeat 0 -398px;
+		}
+	
+	.beacon-contact-form.contact .beacon-form-success-text {
+		padding: 50px 15%;
+		font-size: 1.75em;
+	}
+	
+/**
+ * request demo beacon form page
+ */
+#block-beacon-request-demo-form {
+	width: 780px;
+	background: #ebebeb url(../images/forms/form-end-background-top.png) no-repeat center top;
+	margin: 0 auto;
+}
+
+	.beacon-contact-form.request-demo {
+		padding: 35px 0 35px 30px;
+		/* curved bottom border */
+		background: url(../images/forms/form-end-background-bottom.png) no-repeat center bottom;
+	}
+	
+		.beacon-contact-form.request-demo .beacon-form-title-header {
+			font-size: 2.5em;
+			text-align: center;
+		}
+	
+		.beacon-contact-form.request-demo .beacon-form-title-subheader {
+			text-align: center;
+		}
+		
+		.beacon-contact-form.request-demo .form-type-textfield,
+		.beacon-contact-form.request-demo .form-type-select {
+			width: 343px;
+			float: left;
+			padding-right: 30px;
+		}
+		
+		.beacon-contact-form.request-demo .form-type-textarea,
+		.beacon-contact-form.request-demo .form-actions {
+			width: 100%;
+			text-align: right;
+		}
+		
+		.beacon-contact-form.request-demo label,
+		.beacon-contact-form.request-demo .form-text,
+		.beacon-contact-form.request-demo .form-select {
+			width: 323px;
+			text-align: left;
+		}
+		
+		.beacon-contact-form.request-demo .form-textarea {
+			width: 716px;
+			text-align: left;
+		}
+		
+		.beacon-contact-form.request-demo .form-text {
+			background: #fff;
+			border: none;
+			padding: 0 10px;
+		}
+		
+		.beacon-contact-form.request-demo .form-text,
+		.beacon-contact-form.request-demo .form-textarea {
+		}
+		
+		.beacon-contact-form.request-demo .form-actions {
+			width: 716px;
+			text-align: center;
+			padding-top: 30px;
+		}
+		
+		.beacon-contact-form.request-demo .form-submit {
+			width: 304px;
+			height: 75px;
+			line-height: 75px;
+			padding-right: 50px;
+			background: url(../images/forms/imagemap.png) no-repeat;
+			border: none;
+			color: #fff;
+			font-size: 1.88em;
+			font-family: "Alright Sans", sans-serif;
+			text-transform: lowercase;
+			outline: none;
+		}
+		
+		.beacon-contact-form.request-demo .form-submit:hover {
+			background: url(../images/forms/imagemap.png) no-repeat 0 -322px;
+		}
+
+/**
+ * resources beacon form page
+ */
+#block-beacon-resources-form {
+	width: 780px;
+	background: #ebebeb url(../images/forms/form-end-background-top.png) no-repeat center top;
+	margin: 0 auto;
+}
+
+	.beacon-contact-form.resources {
+		width: 640px;
+		padding: 38px 70px 18px;
+		/* curved bottom border */
+		background: url(../images/forms/form-end-background-bottom.png) no-repeat center bottom;
+	}
+	
+		.beacon-contact-form.resources .beacon-form-title-header {
+			font-size: 1.08em;
+			float: none;
+			clear: both;
+			padding-bottom: 5px;
+		}
+		
+		.beacon-contact-form.resources .form-type-textfield,
+		.beacon-contact-form.resources .form-type-select {
+			width: 300px;
+			float: left;
+			padding-right: 20px;
+		}
+		
+		.beacon-contact-form.resources .form-type-textarea,
+		.beacon-contact-form.resources .form-actions {
+			width: 100%;
+			text-align: left;
+			clear: both;
+		}
+		
+		.beacon-contact-form.resources .form-text,
+		.beacon-contact-form.resources .form-select {
+			width: 280px;
+			text-align: left;
+			padding: 0 10px;
+		}
+		
+		.beacon-contact-form.resources .form-textarea {
+			width: 620px;
+			text-align: left;
+		}
+		
+		.beacon-contact-form.resources .form-text {
+			background: #fff;
+			border: none;
+		}
+		
+		.beacon-contact-form.resources .form-text,
+		.beacon-contact-form.resources .form-textarea {
+		}
+		
+		.beacon-contact-form.resources .form-actions {
+			width: 620px;
+			text-align: center;
+		}
+		
+		.beacon-contact-form.resources .form-checkboxes {
+			width: 700px;
+			padding-bottom: 40px;
+			overflow: auto;
+			display: table;
+		}
+		
+			.beacon-contact-form.resources .form-type-checkbox {
+				margin-bottom: 10px;
+				width: 224px;
+				padding-right: 5px;
+				float: left;
+			}
+			
+				.beacon-contact-form.resources .form-type-checkbox label {
+					width: 219px;
+				}
+		
+			.beacon-contact-form.resources .form-type-checkbox:nth-of-type(3n+2) {
+				width: 170px;
+				padding-left: 30px;
+			}
+		
+				.beacon-contact-form.resources .form-type-checkbox:nth-of-type(3n+2) label {
+					width: 175px;
+				}
+		
+			.beacon-contact-form.resources .form-type-checkbox .form-checkbox {
+				margin-right: 2px;
+				cursor: pointer;
+			}
+		
+			.beacon-contact-form.resources .form-type-checkbox .option {
+			}
+		
+		.beacon-contact-form.resources .form-submit {
+			width: 90px;
+			height: 32px;
+			line-height: 32px;
+			background: url(../images/forms/imagemap.png) no-repeat 0 -76px;
+			border: none;
+			color: #fff;
+			font-size: 1.167em;
+			font-family: "Alright Sans", sans-serif;
+			text-transform: lowercase;
+			outline: none;
+		}
+
+/**
+ * form errors
+ */
+.beacon-form-error {
+	height: 52px;
+	position: absolute;
+	display: block;
+	padding: 13px 0 0 27px;
+	font-size: .84em;
+	color: #fff;
+	line-height: 39px;
+	margin: -13px 0 0 -18px;
+	background: url(../images/forms/imagemap.png) no-repeat 0 -257px;
+}
+
+.beacon-form-error:after {
+	content: '';
+	width: 20px;
+	height: 65px;
+	overflow: hidden;
+	position: absolute;
+	display: block;
+	top: 0;
+	right: -20px;
+	background: url(../images/forms/imagemap.png) no-repeat -380px -257px;
+}
+
+.beacon-contact-form .messages.error {
+	background: url(../images/forms/imagemap.png) no-repeat -15px -270px;
+	line-height: 38px;
+	padding: 0 13px;
+	font-size: .84em;
+	color: #fff;
+	margin: 0 0 20px;
+	border: none;
+	display: inline-block;
+}

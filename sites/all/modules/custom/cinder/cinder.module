@@ -1,0 +1,413 @@
+<?php
+/**
+ *  Cinder - Custom blocks manager for Polaris
+ *  Created by: mandelbro
+ */
+
+// get include files
+_include_folder(_get_module_dir('cinder') .'/include');
+
+/**
+ *  Implementation of hook_init
+ */
+function cinder_init() {
+}
+
+/**
+ *  Implementation of hook_permission
+ */
+function cinder_permission() {
+}
+
+/**
+ *  Implementation of hook_menu
+ */
+function cinder_menu() {
+}
+
+/**
+ *  Implementation of hook_theme()
+ */
+function cinder_theme() {
+  return array(
+    'cinder_request_demo_link' => array(
+      'template'  => 'templates/request-demo-link',
+      'variables' => array(
+      	'text' => 'Request Demo',
+      	'icon' => 'arrow huge',
+      	'href' => '/request-demo',
+      ),
+    ),
+    'cinder_news_events' => array(
+      'template'  => 'templates/news-events',
+    ),
+    'cinder_client_showcase' => array(
+      'template'  => 'templates/client-showcase',
+      'variables' => array(
+      	'vocab' => array(),
+      ),
+    ),
+    'cinder_block_solutions_carousel' => array(
+      'template'  => 'templates/solutions-carousel',
+    ),
+    'cinder_action_links' => array(
+      'template'  => 'templates/action-links',
+    ),
+    'cinder_contact_links' => array(
+      'template'  => 'templates/contact-links',
+    ),
+    'cinder_block_case_studies' => array(
+      'template'  => 'templates/case-studies',
+    ),
+    'cinder_team_members' => array(
+      'template'  => 'templates/team-members',
+    ),
+    'cinder_events_sidebar' => array(
+      'template'  => 'templates/events-sidebar',
+    ),
+    'cinder_polaris_showcase' => array(
+      'template'  => 'templates/polaris-showcase',
+    ),
+    'cinder_why_polaris' => array(
+      'template'  => 'templates/why-polaris',
+      'variables' => array(
+      	'vocab' => array(),
+      ),
+    ),
+    'cinder_career_nodes' => array(
+      'template'  => 'templates/career-nodes',
+    ),
+    'cinder_contact_info' => array(
+      'template'  => 'templates/contact-info',
+    ),
+    'cinder_careers_sidebar' => array(
+      'template'  => 'templates/careers-sidebar',
+    ),
+    'cinder_footer_link_menu' => array(
+      'template'  => 'templates/footer-link-menu',
+      'variables' => array(
+      	'links' => array(),
+      ),
+    ),
+    'cinder_link_menu' => array(
+      'template'  => 'templates/link-menu',
+      'variables' => array(
+      	'links' => array(),
+      ),
+    ),
+  );
+}
+
+/**
+ * Implementation of hook_block_info
+ * Block Definition List
+
+		Request Demo Link Block
+			- All pages (footer region)
+
+		News and Events block
+			- Homepage (content bottom region)
+			- Company (content bottom region)
+
+		Client testimonial block
+			- Homepage (content bottom region)
+			- Company (content bottom region)
+
+		Client showcase block
+			- Homepage (content bottom region)
+			- Company (content bottom region)
+
+		Solutions Carousel
+			- Homepage (content bottom region)
+
+		Action Links Block
+			- Homepage (content bottom region)
+
+		Case study select block
+			- Case Study (content bottom region)
+
+		Executive Team block
+			- Company (content bottom region)
+
+		Events Sidebar block
+			- News & Events (right sidebar region)
+
+		Solutions Menu Block
+			- Solutions (content region)
+
+		Polaris Showcase Block
+			- Solutions (content bottom region)
+
+		Why Polaris Block
+			- Solutions (content bottom region)
+
+		Careers Block
+			- Company (content bottom region)
+
+		Contact Info Block
+			- Contact (content top region)
+
+		Contact Form Block
+			- Contact (content region)
+
+		Careers Sidebar Block
+			- Contact (right sidebar region)
+
+		Footer Link Menu Block
+			- All (footer region)
+ */
+function cinder_block_info() {
+
+  // define block for the Request Demo Link Block
+  $blocks['request_demo_link'] = array(
+    'info'        => t('Request Demo Link'),
+    'status'      => TRUE,
+    'region'      => 'content_bottom',
+    'weight'      => 0,
+    'visibility'  => 0, // show this block on all pages except those listed below
+    //'visibility'  => 1, // show this block only on the pages listed below
+    'pages'				=> "admin\n".
+    								 "admin/*\n".
+    								 "request-demo\n".
+    								 "request-demo/*\n",
+  );
+
+  // define block for the Request Demo Link Block
+  $blocks['homepage_link'] = array(
+    'info'        => t('Back to Homepage Link'),
+    'status'      => TRUE,
+    'region'      => 'content',
+    'weight'      => 10,
+    //'visibility'  => 0, // show this block on all pages except those listed below
+    'visibility'  => 1, // show this block only on the pages listed below
+    'pages'				=> "not-found",
+  );
+
+  // define block for the News and Events block
+  $blocks['news_events'] = array(
+    'info'        => t('News and Events'),
+    'status'      => TRUE,
+    'region'      => 'content_bottom',
+    'weight'      => 10,
+    //'visibility'  => 0, // show this block on all pages except those listed below
+    'visibility'  => 1, // show this block only on the pages listed below
+    'pages'				=> "home\n".
+    								 "company\n",
+  );
+
+  // define block for the Client Testimonials Fader Block
+  $blocks['client_testimonial'] = array(
+    'info'        => t('Client Testimoials Fader'),
+    'status'      => TRUE,
+    'region'      => 'content_bottom',
+    'weight'      => 5,
+    //'visibility'  => 0, // show this block on all pages except those listed below
+    'visibility'  => 1, // show this block only on the pages listed below
+    'pages'				=> "home\n".
+    								 "company\n",
+  );
+
+  // define block for the Client Testimonials Fader Block
+  $blocks['client_showcase_top'] = array(
+    'info'        => t('Client Showcase Strip Top'),
+    'status'      => TRUE,
+    'region'      => 'content_bottom',
+    'weight'      => 4,
+    //'visibility'  => 0, // show this block on all pages except those listed below
+    'visibility'  => 1, // show this block only on the pages listed below
+    'pages'				=> "company\n",
+  );
+
+  // define block for the Client Testimonials Fader Block
+  $blocks['client_showcase_bottom'] = array(
+    'info'        => t('Client Showcase Strip Bottom'),
+    'status'      => TRUE,
+    'region'      => 'content_bottom',
+    'weight'      => 6,
+    //'visibility'  => 0, // show this block on all pages except those listed below
+    'visibility'  => 1, // show this block only on the pages listed below
+    'pages'				=> "home\n",
+  );
+
+  // define block for the Solutions Carousel Block
+  $blocks['solutions_carousel'] = array(
+    'info'        => t('Solutions Carousel'),
+    'status'      => TRUE,
+    'region'      => 'content_bottom',
+    'weight'      => 0,
+    //'visibility'  => 0, // show this block on all pages except those listed below
+    'visibility'  => 1, // show this block only on the pages listed below
+    'pages'				=> "home\n",
+  );
+
+  // define block for the Action Links Block
+  $blocks['action_links'] = array(
+    'info'        => t('Action Links'),
+    'status'      => TRUE,
+    'region'      => 'content',
+    'weight'      => 10,
+    //'visibility'  => 0, // show this block on all pages except those listed below
+    'visibility'  => 1, // show this block only on the pages listed below
+    'pages'				=> "home\n",
+  );
+
+  // define block for the Action Links Block
+  $blocks['contact_links'] = array(
+    'info'        => t('Contact links for the request demo page'),
+    'status'      => TRUE,
+    'region'      => 'content',
+    'weight'      => 5,
+    //'visibility'  => 0, // show this block on all pages except those listed below
+    'visibility'  => 1, // show this block only on the pages listed below
+    'pages'				=> "request-demo\n",
+  );
+
+  // define block for the Case Study Selector Block
+  $blocks['case_studies'] = array(
+    'info'        => t('Case Study Selector'),
+    'status'      => TRUE,
+    'region'      => 'content_bottom',
+    'weight'      => 0,
+    //'visibility'  => 0, // show this block on all pages except those listed below
+    'visibility'  => 1, // show this block only on the pages listed below
+    'pages'				=> "case-studies\n",
+  );
+
+  // define block for the Team Members Grid Block
+  $blocks['team_members'] = array(
+    'info'        => t('Team Members Grid'),
+    'status'      => TRUE,
+    'region'      => 'content',
+    'weight'      => 10,
+    //'visibility'  => 0, // show this block on all pages except those listed below
+    'visibility'  => 1, // show this block only on the pages listed below
+    'pages'				=> "company\n",
+  );
+
+  // define block for the Events Sidebar Block
+  $blocks['events_sidebar'] = array(
+    'info'        => t('Events Sidebar'),
+    'status'      => TRUE,
+    'region'      => 'sidebar_second',
+    'weight'      => 0,
+    //'visibility'  => 0, // show this block on all pages except those listed below
+    'visibility'  => 1, // show this block only on the pages listed below
+    'pages'				=> "company/news-and-events\n",
+  );
+
+  // define block for the Solutions Menu Block
+  $blocks['solutions_menu'] = array(
+    'info'        => t('Solutions Menu'),
+    'status'      => TRUE,
+    'region'      => 'content',
+    'weight'      => 1,
+    //'visibility'  => 0, // show this block on all pages except those listed below
+    'visibility'  => 1, // show this block only on the pages listed below
+    'pages'				=> "solutions\n",
+  );
+
+  // define block for the Solutions Menu Block
+  $blocks['solutions_links_header'] = array(
+    'info'        => t('Solutions Links Menu (header)'),
+    'status'      => TRUE,
+    'region'      => 'header',
+    'weight'      => 10,
+    //'visibility'  => 0, // show this block on all pages except those listed below
+    'visibility'  => 1, // show this block only on the pages listed below
+    'pages'				=> "solutions/*\n",
+  );
+
+  // define block for the Solutions Menu Block
+  $blocks['solutions_links_footer'] = array(
+    'info'        => t('Solutions Links Menu (footer)'),
+    'status'      => TRUE,
+    'region'      => 'content_bottom',
+    'weight'      => 100,
+    //'visibility'  => 0, // show this block on all pages except those listed below
+    'visibility'  => 1, // show this block only on the pages listed below
+    'pages'				=> "solutions/*\n",
+  );
+
+  // define block for the Polaris Product Showcase Slideshow Block
+  $blocks['polaris_showcase'] = array(
+    'info'        => t('Product Showcase Slideshow'),
+    'status'      => TRUE,
+    'region'      => 'content_bottom',
+    'weight'      => 0,
+    //'visibility'  => 0, // show this block on all pages except those listed below
+    'visibility'  => 1, // show this block only on the pages listed below
+    'pages'				=> "solutions\n",
+  );
+
+  // define block for the Why Polaris Block Block
+  $blocks['why_polaris'] = array(
+    'info'        => t('"Why Polaris" Selling Points'),
+    'status'      => TRUE,
+    'region'      => 'content_bottom',
+    'weight'      => 5,
+    //'visibility'  => 0, // show this block on all pages except those listed below
+    'visibility'  => 1, // show this block only on the pages listed below
+    'pages'				=> "solutions\n",
+  );
+
+  // define block for the Careers Listing Block
+  $blocks['career_nodes'] = array(
+    'info'        => t('Careers Listing'),
+    'status'      => TRUE,
+    'region'      => 'content_bottom',
+    'weight'      => 15,
+    //'visibility'  => 0, // show this block on all pages except those listed below
+    'visibility'  => 1, // show this block only on the pages listed below
+    'pages'				=> "company\n",
+  );
+
+  // define block for the Contact Info Block
+  $blocks['contact_info'] = array(
+    'info'        => t('Contact Info'),
+    'status'      => TRUE,
+    'region'      => 'content_top',
+    'weight'      => 0,
+    //'visibility'  => 0, // show this block on all pages except those listed below
+    'visibility'  => 1, // show this block only on the pages listed below
+    'pages'				=> "contact\n",
+  );
+
+  // define block for the Careers Sidebar Block
+  $blocks['careers_sidebar'] = array(
+    'info'        => t('Careers Sidebar'),
+    'status'      => TRUE,
+    'region'      => 'sidebar_second',
+    'weight'      => 0,
+    //'visibility'  => 0, // show this block on all pages except those listed below
+    'visibility'  => 1, // show this block only on the pages listed below
+    'pages'				=> "contact\n",
+  );
+
+  // define block for the Careers Sidebar Block
+  $blocks['footer_link_menu'] = array(
+    'info'        => t('Footer Link Menu'),
+    'status'      => TRUE,
+    'region'      => 'footer',
+    'weight'      => 10,
+    'visibility'  => 0, // show this block on all pages except those listed below
+    //'visibility'  => 1, // show this block only on the pages listed below
+    'pages'				=> "admin\n".
+    								 "admin/*",
+  );
+
+  return $blocks;
+}
+
+/**
+ *  Implementation of hook_block_view
+ */
+function cinder_block_view($delta = '') {
+
+	// build the cinder block function
+	$fn = "cinder_{$delta}_block";
+	// return the function if it exists
+	if(function_exists($fn)) {
+		return array('content' => $fn());
+	}
+
+}

@@ -1,0 +1,475 @@
+/**
+ * Team Member Block
+ */
+#block-cinder-team-members {
+	height: 540px;
+	position: relative;
+	left: 5%;
+	-webkit-backface-visibility: hidden;
+	-webkit-transform: translate3d(0,0,0);
+	z-index: 10;
+}
+
+	#block-cinder-team-members .team-member-block-title {
+		font-size: 3.58em;
+		text-align: center;
+		margin: 10px 0 40px;
+		font-family: "Alright Sans Light", sans-serif;
+		position: relative;
+		left: -5%;
+	}
+
+	#block-cinder-team-members .node-teammate {
+		width: 23.5%;
+		float: left;
+		position: relative;
+		/* transition */
+		-webkit-transition: width .3s ease, margin .3s ease;
+		-moz-transition: width .3s ease, margin .3s ease;
+		-ms-transition: width .3s ease, margin .3s ease;
+		-o-transition: width .3s ease, margin .3s ease;
+		transition: width .3s ease, margin .3s ease;
+	}
+
+	#block-cinder-team-members .node-teammate.hover,
+	#block-cinder-team-members .node-teammate.overlay-active {
+		width: 29.2%;
+		margin-top: -15px;
+		float: left;
+	}
+
+		#block-cinder-team-members .teammate-content-section {
+			text-align: center;
+			width: 88%;
+			font-family: "Alright Sans", sans-serif;
+			/* transition */
+			-webkit-transition: width .3s ease;
+			-moz-transition: width .3s ease;
+			-ms-transition: width .3s ease;
+			-o-transition: width .3s ease;
+			transition: width .3s ease;
+			/* le sigh */
+			-webkit-backface-visibility: hidden;
+			-moz-backface-visibility: hidden;
+			-ms-backface-visibility: hidden;
+			-o-backface-visibility: hidden;
+			backface-visibility: hidden;
+		}
+
+		#block-cinder-team-members .hover .teammate-content-section,
+		#block-cinder-team-members .overlay-active .teammate-content-section {
+			width: 90%;
+		}
+
+			#block-cinder-team-members .teammate-content-link {
+			}
+
+				#block-cinder-team-members .teammate-content-link .teammate-profile-image {
+					max-width: 100%;
+					width: auto;
+					height: auto;
+				}
+
+				#block-cinder-team-members .teammate-content-link .teammate-name {
+					font-size: 1.25em;
+					margin: 10px 0 0px;
+					text-align: left;
+					/* transition */
+					-webkit-transition: font-size .3s ease;
+					-moz-transition: font-size .3s ease;
+					-ms-transition: font-size .3s ease;
+					-o-transition: font-size .3s ease;
+					transition: font-size .3s ease;
+				}
+
+				#block-cinder-team-members .teammate-content-link .teammate-job-title {
+					text-align: left;
+					font-size: .833em;
+					/* transition */
+					-webkit-transition: font-size .25s ease;
+					-moz-transition: font-size .25s ease;
+					-ms-transition: font-size .25s ease;
+					-o-transition: font-size .25s ease;
+					transition: font-size .25s ease;
+				}
+
+				#block-cinder-team-members .hover .teammate-profile-image {
+				}
+
+				#block-cinder-team-members .hover .teammate-name,
+				#block-cinder-team-members .overlay-active .teammate-name {
+					font-size: 1.42em;
+				}
+
+				#block-cinder-team-members .hover .teammate-job-title,
+				#block-cinder-team-members .overlay-active .teammate-job-title {
+					font-size: 1em;
+				}
+
+			.teammate-contact {
+				overflow: hidden;
+				text-align: left;
+				color: #764980;
+				margin-top: 6px;
+				opacity: 0;
+				filter: alpha(opacity=0);
+				font-family: "Alright Sans", sans-serif;
+				/* transition */
+				-webkit-transition: opacity .3s ease;
+				-moz-transition: opacity .3s ease;
+				-ms-transition: opacity .3s ease;
+				-o-transition: opacity .3s ease;
+				transition: opacity .3s ease;
+			}
+
+			#block-cinder-team-members .hover .teammate-contact,
+			#block-cinder-team-members .overlay-active .teammate-contact,
+			.activelink-overlay-content .teammate-contact {
+				filter: alpha(opacity=100);
+				opacity: 1;
+			}
+
+				.teammate-contact-email {
+					font-size: .75em;
+					vertical-align: top;
+					float: left;
+					line-height: 12px;
+				}
+
+				.teammate-contact br {
+					line-height: .5em;
+				}
+
+				.teammate-contact-phone {
+					font-size: .667em;
+					vertical-align: top;
+					float: left;
+					line-height: 8px;
+				}
+
+				.teammate-contact-social-link {
+					width: 28px;
+					height: 28px;
+					display: block;
+					margin-right: 7px;
+					margin-bottom: 4px;
+					float: left;
+					background-image: url(../images/main/imagemap.png);
+					background-repeat: no-repeat;
+					background-position: -157px 0px;
+				}
+
+				.teammate-contact-social-link.linkedin {
+					background-position: -157px -30px;
+				}
+
+		.teammate-display-overlay {
+		}
+
+			.teammate-display-overlay .teammate-office-location {
+				width: 206px;
+				height: 121px;
+				display: block;
+				position: absolute;
+				top: 70px;
+				left: 60%;
+				background: url(../images/main/imagemap.png) no-repeat 0 -540px;
+			}
+
+			.teammate-display-overlay.dublin .teammate-office-location {
+			}
+
+			.teammate-display-content-inner {
+				float: left;
+				width: 55%;
+			}
+
+				.teammate-display-overlay .teammate-profile-image {
+					float: left;
+					margin: 0 30px 45px 0;
+				}
+
+				.teammate-display-overlay .teammate-contact {
+					margin-bottom: 45px;
+				}
+
+				.teammate-display-overlay .teammate-name {
+					font-size: 1.833em;
+				}
+
+				.teammate-display-overlay .teammate-job-title {
+					font-size: 1.42em;
+				}
+
+				.teammate-display-overlay .teammate-bio {
+					font-size: .9em;
+					line-height: 1.5em;
+				}
+
+/**
+ * Company Node Listing Pages
+ **/
+.node-list-header {
+	text-align: center;
+	margin-bottom: 30px;
+	-webkit-transform: translate3d(0,0,0);
+	-webkit-perspective: 1000;
+}
+
+.node-list-header-text {
+	font-size: 4.8em;
+	line-height: 1.2em;
+	z-index: 10;
+	margin: 0;
+}
+
+.node-list-header-subtext {
+	font-size: 1.25em;
+	line-height: 1.2em;
+	font-family: "Bitter", Georgia, serif;
+}
+
+#sidebar_second-region {
+	float: right;
+	width: 24.65%;
+}
+
+.sidebar-second .node-news {
+	float: left;
+	width: 70%;
+}
+
+/**
+ * News and Events Listing Pages
+ **/
+#block-cinder-events-sidebar {
+
+}
+
+.node-event {
+	padding-bottom: 15px;
+}
+
+.event-node-display {
+	padding: 35px 40px;
+}
+
+	.event-display-image {
+		float: left;
+		width: 40%;
+		padding-right: 5%;
+	}
+
+	.event-display-image img {
+		width: 100%;
+		height: auto;
+	}
+
+	.event-display-details {
+		width: 55%;
+		float: left;
+	}
+
+	.event-display-details span {
+		display: block;
+	}
+
+		.event-details-title {
+			font-size: 1.833em;
+			line-height: 1.2em;
+			margin: 5px 0 12px;
+		}
+
+		.event-details-date,
+		.event-details-venue,
+		.event-details-time {
+			font-size: 1.2em;
+		}
+
+	.event-display-body {
+		margin-top: 25px;
+	}
+
+	.event-display-body p {
+		font-size: .85em;
+		line-height: 1.6em;
+	}
+
+#block-cinder-events-sidebar,
+.news-node-list-page {
+	-webkit-transform: translate3d(0,0,0);
+	-webkit-perspective: 1000;
+}
+
+	#block-cinder-events-sidebar .node-list-name,
+	.news-node-list-page .node-list-name {
+		font-family: "Alright Sans Light", sans-serif;
+		font-size: 1.167em;
+		margin-bottom: 5px;
+	}
+
+	.news-node-list-page article.node-news {
+		padding-top: 20px;
+		margin-top: 20px;
+		border-top: 2px solid #f4f4f4;
+	}
+
+	.news-node-list-page article.node-news:first-of-type {
+		padding-top: 0;
+		margin-top: 0;
+		border-top: none;
+	}
+
+		.news-node-list-page .news-node-display-image {
+			float: left;
+			margin: 0 15px 0 0
+		}
+
+		.news-node-list-page .news-node-content {
+		}
+
+			.news-node-list-page .news-date {
+
+			}
+
+			.news-node-list-page .news-title {
+				font-size: 1.5em;
+				margin-bottom: 8px;
+			}
+
+			.news-node-list-page .news-summary {
+				font-size: .833em;
+				padding-bottom: 10px;
+			}
+
+			.news-node-list-page .news-summary p {
+				margin: 0;
+			}
+
+#news-node-page {
+	-webkit-transform: translate3d(0,0,0);
+	-webkit-perspective: 1000;
+}
+
+	#news-node-page .news-node-content {
+	}
+
+		#news-node-page .news-date {
+		}
+
+		#news-node-page .news-title {
+			font-size: 3em;
+			margin-bottom: 8px;
+		}
+
+		#news-node-page .news-node-image-wrapper {
+			width: 315px;
+			position: relative;
+			float: left;
+			margin: 0 30px 10px 0;
+		}
+
+			#news-node-page .news-node-display-image {
+				margin-bottom: 11px;
+			}
+
+			#news-node-page .news-node-social-links {
+			}
+
+			#news-node-page .news-node-social-links iframe {
+				width: 30% !important;
+			}
+
+		#news-node-page .news-body {
+			font-size: .833em;
+		}
+
+/**
+ * Careers listings page
+ **/
+
+.career-node-list-page {
+	margin-top: 50px;
+	-webkit-transform: translate3d(0,0,0);
+	-webkit-perspective: 1000;
+}
+
+	.career-node-list-page .node-list-name {
+		display: none;
+	}
+
+	.career-node-list-page .node-career {
+		margin-top: 30px;
+		padding-top: 30px;
+		border-top: 2px solid #f4f4f4;
+		position: relative;
+	}
+
+	.career-node-list-page .node-career:first-of-type {
+		margin-top: 0;
+		padding-top: 0;
+		border-top: none;
+	}
+
+		.career-node-list-page .career-toggle-link {
+			position: absolute;
+			left: -32px;
+			top: 34px;
+		}
+
+		.career-node-list-page .node-career:first-of-type .career-toggle-link {
+			top: 4px;
+		}
+
+		.career-node-list-page .career-apply-link {
+			width: 130px;
+			height: 32px;
+			position: absolute;
+			display: block;
+			right: 0px;
+			background: url(../images/main/imagemap.png) no-repeat -206px -592px;
+			font-size: 1.175em;
+			font-family: "Alright Sans Medium", sans-serif;
+			text-align: center;
+			padding-top: 1px;
+		}
+
+		.career-node-list-page .career-apply-link:hover {
+			background: url(../images/main/imagemap.png) no-repeat 0 -962px;
+		}
+
+			.career-node-list-page .career-apply-link .polaris-plus {
+				margin-left: 8px;
+				top: 5px;
+			}
+
+		.career-node-list-page .career-node-content {
+			width: 80%;
+		}
+
+			.career-node-list-page .career-title {
+				font-size: 1.5em;
+			}
+
+			.career-node-list-page .career-department {
+				font-size: 1em;
+				margin-bottom: 10px;
+			}
+
+			.career-node-list-page .career-description,
+			.career-node-list-page .career-required-skills {
+				font-size: .85em;
+				line-height: 1.6em;
+			}
+
+			.career-node-list-page .career-required-skills {
+				margin-top: 15px;
+				height: 0px;
+				overflow: hidden;
+			}
+
+
+
+
+
+

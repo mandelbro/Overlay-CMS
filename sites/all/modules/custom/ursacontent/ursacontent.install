@@ -1,0 +1,226 @@
+<?php
+
+/**
+ * @file
+ * Install file for Ursacontent module.
+ */
+
+/**
+ * Implements hook_install().
+ * - Add the body field.
+ * - Configure the body field.
+ * - Create the company name field.
+ */
+function ursacontent_install() {
+	$types = array(
+    array(
+      'type' => 'career',
+      'name' => t('Career'),
+      'base' => 'node_content',
+      'module' => 'ursacontent',
+			'title_label' => 'Job Title',
+			'body_label' => 'Job Description',
+      'description' => t("Basic page templates with wide and narrow columns, use with blocks to add extra awesomeness."),
+      'custom' => 1,
+      'modified' => 1,
+      'disabled' => 0,
+      'locked' => 0,
+    ),
+    array(
+      'type' => 'event',
+      'name' => t('Event'),
+      'base' => 'node_content',
+      'module' => 'ursacontent',
+			'title_label' => 'Event Title',
+			'body_label' => 'Details',
+      'description' => t("Listed on the News & Events Page."),
+      'custom' => 1,
+      'modified' => 1,
+      'disabled' => 0,
+      'locked' => 0,
+    ),
+    array(
+      'type' => 'location',
+      'name' => t('Location'),
+      'base' => 'node_content',
+      'module' => 'ursacontent',
+			'title_label' => 'Location Name',
+      'description' => t("Manage data for Polaris office locations (displayed in the footer)."),
+      'custom' => 1,
+      'modified' => 1,
+      'disabled' => 0,
+      'locked' => 0,
+    ),
+    array(
+      'type' => 'news',
+      'name' => t('News'),
+      'base' => 'node_content',
+      'module' => 'ursacontent',
+			'title_label' => 'Page Title',
+			'body_label' => 'Body',
+      'description' => t("News posts for the News & Events page."),
+      'custom' => 1,
+      'modified' => 1,
+      'disabled' => 0,
+      'locked' => 0,
+    ),
+    array(
+      'type' => 'page',
+      'name' => t('Page'),
+      'base' => 'node_content',
+      'module' => 'ursacontent',
+			'title_label' => 'Page Title',
+			'body_label' => 'Body',
+      'description' => t("Basic page templates with wide and narrow columns, use with blocks to add extra awesomeness."),
+      'custom' => 1,
+      'modified' => 1,
+      'disabled' => 0,
+      'locked' => 0,
+    ),
+    array(
+      'type' => 'solution',
+      'name' => t('Solution'),
+      'base' => 'node_content',
+      'module' => 'ursacontent',
+			'title_label' => 'Title',
+			'body_label' => 'Long Description',
+      'description' => t("Data associated with the solutions menus and details page."),
+      'custom' => 1,
+      'modified' => 1,
+      'disabled' => 0,
+      'locked' => 0,
+    ),
+    array(
+      'type' => 'teammate',
+      'name' => t('Team Member'),
+      'base' => 'node_content',
+      'module' => 'ursacontent',
+			'title_label' => 'Name',
+			'body_label' => 'Blurb',
+      'description' => t("Team members for the Company page."),
+      'custom' => 1,
+      'modified' => 1,
+      'disabled' => 0,
+      'locked' => 0,
+    ),
+    array(
+      'type' => 'testimonial',
+      'name' => t('Testimonial'),
+      'base' => 'node_content',
+      'module' => 'ursacontent',
+			'title_label' => 'Title',
+			'body_label' => 'Quotation',
+      'description' => t("Testiomials shown in the testimonial block."),
+      'custom' => 1,
+      'modified' => 1,
+      'disabled' => 0,
+      'locked' => 0,
+    ),
+    array(
+      'type' => 'slideshow',
+      'name' => t('Content Slideshow'),
+      'base' => 'node_content',
+      'module' => 'ursacontent',
+			'title_label' => 'Title',
+      'description' => t("Content slideshows that are associated with a page."),
+      'custom' => 1,
+      'modified' => 1,
+      'disabled' => 0,
+      'locked' => 0,
+    ),
+	);
+
+	// create a new node type for each
+	foreach($types as $type) {
+
+		$type = node_type_set_defaults($type);
+
+		// Saving the content type after saving the variables allows modules to act
+		// on those variables via hook_node_type_insert().
+		$status = node_type_save($type);
+
+	}
+
+	// add taxonomy vocabulary
+	$vocabs = array(
+		'polaris_organizations' => array(
+			'vocabulary' => array(
+				'name' => 'Industries',
+				'machine_name' => 'polaris_industries',
+				'description' => 'Some of our clients are the leading companies in the following industries...',
+				'module' => 'ursacontent_page',
+			),
+			'terms' => array(
+				array(
+					'name' => 'Industrials',
+				),
+				array(
+					'name' => 'Financials',
+				),
+				array(
+					'name' => 'Pharmaceuticals',
+				),
+				array(
+					'name' => 'Information Technology',
+				),
+			),
+		),
+		'why_polaris' => array(
+			'vocabulary' => array(
+				'name' => 'Why Polaris',
+				'machine_name' => 'why_polaris',
+				'description' => 'Why do top global mobility programs choose Polaris?',
+				'module' => 'ursacontent',
+			),
+			'terms' => array(
+				array(
+					'name' => 'Quick Setup',
+					'description' => 'Start using our software and services in a matter of weeks.'
+				),
+				array(
+					'name' => 'Easy Integration',
+					'description' => 'Continue using your existing HRIS, payroll and vendor systems.'
+				),
+				array(
+					'name' => 'Completely Configurable',
+					'description' => 'Get solutions configured to meet the unique needs of your program.'
+				),
+				array(
+					'name' => 'Centralized Management',
+					'description' => 'Run your program on one platform with role-based access.'
+				),
+				array(
+					'name' => 'Robust Features',
+					'description' => 'Streamline your processes for estimates, reporting, workflow and more.'
+				),
+				array(
+					'name' => 'Office Services',
+					'description' => 'Outsource administrative services to Polaris or manage them internally.'
+				),
+			),
+		),
+	);
+
+	// loop through each vocabulary block and programitically create the term
+	foreach($vocabs as $machine_name => $vocab) {
+		// separate the array terms from the vocab object
+		$terms = isset($vocab['terms']) ? $vocab['terms'] : array();
+		$vocabulary = (object)$vocab['vocabulary'];
+		// check if a term exists for this machine name, if so, skip this vocab
+		if(taxonomy_vocabulary_machine_name_load($machine_name)) continue;
+		// create the vocabulary term
+		$status = taxonomy_vocabulary_save($vocabulary);
+		// add the vid to variable storage
+		variable_set($vocabulary->machine_name .'_vocabulary', $vocabulary->vid);
+		// add each term to the vocabulary
+		foreach($terms as $term) {
+			// add the vid to the term
+			$term['vid'] = $vocabulary->vid;
+			taxonomy_term_save((object)$term);
+		}
+	}
+
+	// rebuild the menus so we can see our new types
+	node_types_rebuild();
+	menu_rebuild();
+}

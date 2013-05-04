@@ -1,0 +1,179 @@
+<?php 
+/**
+ *	polaris.module
+ *	Created by: mandelbro
+ *		Module for all user account functionality (create, delete, update, add/modify community memberships).
+ *		Communitieis themselves are governed in a separate module. 
+ */
+/**
+ * Implementation of hook_boot().
+ */
+function polaris_boot() {
+
+
+	require_once('include/toolkit.inc');
+}
+/**
+ * Implementation of hook_init().
+ */
+function polaris_init() {
+}
+
+/**
+ *  Spork Pages - Page management functionality for Spork
+ *  Created by: Matt
+ */
+
+/**
+ *  Implementation of hook_permission
+ */
+function polaris_permission() {
+}
+
+/**
+ *  Implementation of hook_menu
+ */
+function polaris_menu() {
+	global $user;
+	$items = array();
+	
+  $items['user/edit'] = array(
+    'title' => 'Edit',
+    'page callback' => 'drupal_goto',
+    'page arguments' => array("user/{$user->uid}/edit"),
+    'access callback' => TRUE,
+  );
+	
+	return $items;
+}
+
+/**
+ * Implementation of hook_menu_alter.
+ */
+function polaris_menu_alter(&$items) {
+	// kill all taxonomy paths
+	unset($items['taxonomy/term/%']);
+	// redirect all nodes to their url alii
+	// $items['node/%node']['page callback'] = 'polaris_path_redirect';
+
+  // Registration and login pages.
+  $items['user'] = array(
+    'title' => 'User account',
+    'title callback' => 'user_menu_title',
+    'page callback' => 'polaris_admin_redirect',
+    'access callback' => TRUE,
+    'file' => 'user.pages.inc',
+    'file path' => drupal_get_path('module', 'user'),
+    'weight' => -10,
+    'menu_name' => 'user-menu',
+  );
+
+  $items['user/%user'] = array(
+    'title' => 'My account',
+    'title callback' => 'user_page_title',
+    'title arguments' => array(1),
+    'page callback' => 'polaris_admin_user_redirect',
+    'page arguments' => array(1),
+    'access callback' => 'user_view_access',
+    'access arguments' => array(1),
+    // By assigning a different menu name, this item (and all registered child
+    // paths) are no longer considered as children of 'user'. When accessing the
+    // user account pages, the preferred menu link that is used to build the
+    // active trail (breadcrumb) will be found in this menu (unless there is
+    // more specific link), so the link to 'user' will not be in the breadcrumb.
+    'menu_name' => 'navigation',
+  );
+}
+
+/**
+ *  polaris_path_redirect()
+ *    Redirects system node requests to their path url alii, if one
+ * 		exists
+ */
+function polaris_path_redirect($node) {
+	$uri = explode('/', $_SERVER['REQUEST_URI']);
+	// only proceed if a node path was requested
+	if($uri[1] != 'node') return node_page_view($node);
+	// check if the node has an alias
+	if($path = drupal_lookup_path('alias', 'node/'. $node->nid)) {
+		drupal_goto($path);
+	}
+	else {
+		return node_page_view($node);
+	}
+}
+
+/**
+ *  polaris_path_redirect()
+ *    Redirects system node requests to their path url alii, if one
+ * 		exists
+ */
+function polaris_admin_redirect() {
+	if(user_access('access administration pages')) drupal_goto('admin');
+	return user_page();
+}
+
+/**
+ *  polaris_path_redirect()
+ *    Redirects system node requests to their path url alii, if one
+ * 		exists
+ */
+function polaris_admin_user_redirect($user) {
+	if(user_access('access administration pages')) drupal_goto('admin');
+	return user_view_page($user);
+}
+
+/**
+ *  Implementation of hook_node_info
+ *    Define custom node type 'page'
+function polaris_node_info() {
+}
+ */
+
+/**
+ * Implements hook_field_widget_info().
+ */
+function polaris_field_widget_info() {
+  return array(
+    'polaris_widget_multifield' => array(
+      'label' => t('Multiple Text Field'),
+      'field types' => array('text'),
+      'behaviors' => array(
+        'multiple values' => FIELD_BEHAVIOR_CUSTOM,
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_widget_form().
+ */
+function polaris_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+  switch ($instance['widget']['type']) {
+    case 'polaris_widget_multifield':
+      $values = array();
+      foreach ($items as $delta => $value) {
+        $values[] = $value['value'];
+      }
+      //predie($element);
+			$element += array(
+				'#type' => 'textfield',
+				'#maxlength' => '10000',
+				'#default_value' => join(',!', $values),
+				'#element_validate' => array('polaris_widget_multifield_validate'),
+			);
+      return $element;
+  }
+}
+
+/**
+ * Form element validation handler for 'polaris_widget_multifield' widget.
+ */
+function polaris_widget_multifield_validate($element, &$form_state, $form) {
+  $values = array_map('trim', explode(',!', $element['#value']));
+  $items = array();
+  foreach ($values as $value) {
+    $items[] = array('value' => $value);
+  }
+  form_set_value($element, $items, $form_state);
+}

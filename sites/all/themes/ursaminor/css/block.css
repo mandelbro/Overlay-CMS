@@ -1,0 +1,786 @@
+/**
+ * block.css
+ * general styles for blocks that show up on multiple pages
+ * look into node type stylesheets for page specific block
+ * styling
+ */
+
+/**
+ * Request Demo Link
+ */
+#block-cinder-request-demo-link {
+	width: 100%;
+	text-align: center;
+	padding-top: 60px;
+}
+
+#request-demo-link {
+	width: 305px;
+	height: 58px;
+	padding-top: 12px;
+	display: block;
+	background: url(../images/main/imagemap.png) no-repeat 0 -469px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#request-demo-link:hover {
+	background: url(../images/main/imagemap.png) no-repeat 0 -836px;
+}
+
+/**
+ * Action + Contact links block
+ */
+.action-links {
+	text-align: center;
+	padding-bottom: 40px;
+}
+
+
+	.action-link,
+	.action-link:visited {
+		width: 254px;
+		padding: 4px 0 2px;
+		background: url(../images/main/imagemap.png) no-repeat -72px -60px;
+		display: inline-block;
+		font-family: "Alright Sans", sans-serif;
+		font-size: 1.6em;
+		color: #fff;
+		line-height: 1.875em;
+	}
+
+	.action-link:hover {
+		text-decoration: none;
+		color: #fff;
+		background: url(../images/main/imagemap.png) no-repeat 0 -907px;
+	}
+
+	.action-link-request-demo {
+		background: url(../images/main/imagemap.png) no-repeat -72px -115px;
+		margin-left: 40px;
+	}
+
+	.action-link-request-demo:hover {
+		background: url(../images/main/imagemap.png) no-repeat 0 -781px;
+	}
+
+/**
+ * Action + Contact links block
+ */
+.contact-links {
+	text-align: center;
+	padding-bottom: 60px;
+	z-index: 10;
+	position: relative;
+}
+
+
+	.contact-link,
+	.contact-link:visited {
+		font-size: 1.42em;
+		color: #fff;
+	}
+
+	.contact-link.mail-link {
+		margin-right: 60px;
+	}
+	
+	.contact-link .polaris-arrow.large {
+		margin: 0 5px 0 0;
+	}
+	
+	.contact-links a.contact-link:hover .polaris-arrow.large {
+	}
+
+/**
+ * Solutions Carousel Block
+ */
+.solutions-carousel {
+	height: 610px;
+}
+
+	.solutions-carousel-inner {
+		background-color: #f9f9f9;
+		/* box-shadow */
+		-webkit-box-shadow: inset 100px 0 100px -75px rgba(0,0,0,.15),
+												inset -100px 0 100px -75px rgba(0,0,0,.15);
+		-moz-box-shadow: inset 100px 0 100px -75px rgba(0,0,0,.15),
+												inset -100px 0 100px -75px rgba(0,0,0,.15);
+		-ms-box-shadow: inset 100px 0 100px -75px rgba(0,0,0,.15),
+												inset -100px 0 100px -75px rgba(0,0,0,.15);
+		-o-box-shadow: inset 100px 0 100px -75px rgba(0,0,0,.15),
+												inset -100px 0 100px -75px rgba(0,0,0,.15);
+		box-shadow: inset 100px 0 100px -75px rgba(0,0,0,.15),
+												inset -100px 0 100px -75px rgba(0,0,0,.15);
+	}
+
+	.borderradius .solutions-carousel-curved-border {
+		height: 50px;
+		bottom: -37px;
+	}
+	
+	.solutions-carousel-title {
+		text-align: center;
+		font-size: 3.45em;
+		font-family: "Alright Sans Light", sans-serif;
+		color: #764980;
+		padding: 40px 0 0;
+	}
+	
+	.solutions-carousel .polaris-carousel-control {
+		width: 10%;
+	}
+	
+		.no-boxshadow .solutions-carousel .polaris-carousel-control-button {
+			background-color: #f9f9f9;
+		}
+	
+	.solutions-carousel .polaris-carousel-list {
+	}
+	
+		.solutions-carousel .polaris-carousel-item {
+			position: absolute;
+			width: 33.33%;
+			display: table;
+		}
+		
+		/* as a fallback, if our cool transform / transition effect doesn't work, fallback
+		 * to a simple transition of all changing elements, it looks okay.
+		 * 
+		 * In older browsers the elements will just pop to the correct size
+		 */
+		.csstransitions.no-csstransforms .solutions-carousel .polaris-carousel-item * {
+			-webkit-transition: all .7s ease;
+			-moz-transition: all .7s ease;
+			-ms-transition: all .7s ease;
+			-o-transition: all .7s ease;
+			transition: all .7s ease;
+		}
+	
+		.solutions-carousel-item-link {
+			width: 100%;
+			height: 400px;
+			vertical-align: middle;
+			margin: 0 auto;
+			font-size: .8em;
+			display: table-cell;
+			color: #363636;
+			text-align: center;
+			position: relative;
+		}
+	
+		.csstransforms.csstransitions .solutions-carousel-item-link {
+			/* transition */
+			-webkit-transform: scale(.25,.25);
+			-moz-transform: scale(.25,.25);
+			-ms-transform: scale(.25,.25);
+			-o-transform: scale(.25,.25);
+			transform: scale(.25,.25);
+			/* transition */
+			-webkit-transition: -webkit-transform .7s ease;
+			-moz-transition: -moz-transform .7s ease;
+			-ms-transition: -ms-transform .7s ease;
+			-o-transition: -o-transform .7s ease;
+			transition: transform .7s ease;
+		}
+		
+		.csstransforms.csstransitions .carousel-visible .solutions-carousel-item-link {
+			-webkit-transform: scale(.7,.7);
+			-moz-transform: scale(.7,.7);
+			-ms-transform: scale(.7,.7);
+			-o-transform: scale(.7,.7);
+			transform: scale(.7,.7);
+		}
+		
+		/*
+		.csstransforms3d.csstransitions .solutions-carousel-item-link {
+			-webkit-transform: scale3d(.25,.25,1);
+			-moz-transform: scale3d(.25,.25,1);
+			-ms-transform: scale3d(.25,.25,1);
+			-o-transform: scale3d(.25,.25,1);
+			transform: scale3d(.25,.25,1);
+		}
+		
+		.csstransforms3d.csstransitions .carousel-visible .solutions-carousel-item-link {
+			-webkit-transform: scale3d(.7,.7,1);
+			-moz-transform: scale3d(.7,.7,1);
+			-ms-transform: scale3d(.7,.7,1);
+			-o-transform: scale3d(.7,.7,1);
+			transform: scale3d(.7,.7,1);
+		}
+		*/
+		
+		.csstransforms.csstransitions .active .solutions-carousel-item-link {
+			-webkit-transform: scale(1,1);
+			-moz-transform: scale(1,1);
+			-ms-transform: scale(1,1);
+			-o-transform: scale(1,1);
+			transform: scale(1,1);
+		}
+		/*
+		.csstransforms3d.csstransitions .active .solutions-carousel-item-link {
+			-webkit-transform: scale3d(1,1,1);
+			-moz-transform: scale3d(1,1,1);
+			-ms-transform: scale3d(1,1,1);
+			-o-transform: scale3d(1,1,1);
+			transform: scale3d(1,1,1);
+		}
+		*/
+		
+		.solutions-carousel-item-link:hover,
+		.solutions-carousel-item-link:visited {
+			color: #363636;
+			text-decoration: none;
+		}
+	
+		.active .solutions-carousel-item-link,
+		.csstransforms.csstransitions .solutions-carousel-item-link {
+			font-size: 1em;
+		}
+	
+			.solutions-carousel-item-link span {
+				display: block;
+			}
+			
+			.solutions-carousel-item-icon {
+				width: 100px;
+				height: 90px;
+				position: relative;
+				margin: 0 auto 10px;
+			}
+			
+			.active .solutions-carousel-item-icon,
+			.csstransforms.csstransitions .solutions-carousel-item-icon {
+				width: 222px;
+				height: 200px;
+			}
+			
+				.solutions-carousel-item-icon-image {
+					width: 100%;
+					position: absolute;
+					top: 0;
+					left: 0;
+					opacity: 1;
+					filter: alpha(opacity=100);
+					/* transition */
+					-webkit-transition: opacity .5s ease;
+					-moz-transition: opacity .5s ease;
+					-ms-transition: opacity .5s ease;
+					-o-transition: opacity .5s ease;
+					transition: opacity .5s ease;
+				}
+			
+				.no-boxshadow .solutions-carousel-item-icon-image {
+					background: #f9f9f9;
+				}
+			
+				.solutions-carousel-item-icon-image.active-icon,
+				.active .solutions-carousel-item-icon-image,
+				.solutions-carousel-item-link:hover .solutions-carousel-item-icon-image.active-icon {
+					opacity: 0;
+					filter: alpha(opacity=0);
+				}
+				
+				.active .solutions-carousel-item-icon-image.active-icon,
+				.solutions-carousel-item-link:hover .solutions-carousel-item-icon-image.active-icon {
+					opacity: 1;
+					filter: alpha(opacity=100);
+				}
+			
+			.solutions-carousel-item-title {
+				font-size: 2.06em;
+				font-family: "Alright Sans", sans-serif;
+				color: #764980;
+				display: block;
+			}
+			
+			.no-csstransitions .solutions-carousel-item-title {
+				width: 70%;
+				margin: 0 auto;
+			}
+			
+			.solutions-carousel-item-link:hover .solutions-carousel-item-title:hover,
+			.solutions-carousel-item-link:visited .solutions-carousel-item-title {
+				color: #764980;
+			}
+			
+			.solutions-carousel-item-link:visited .solutions-carousel-item-title {
+				width: 90%;
+			}
+			
+			.solutions-carousel-item-teaser {
+				font-size: 1.08em;
+			}
+			
+			.no-csstransitions .solutions-carousel-item-teaser {
+				width: 70%;
+				margin: 0 auto;
+			} 
+			
+			.active .solutions-carousel-item-teaser,
+			.csstransforms .solutions-carousel-item-teaser {
+				max-width: 480px;
+				width: 95%;
+				margin: 0 auto;
+			}
+			
+			.solutions-carousel-item-link .polaris-carousel-direct-link {
+				margin-top: 12px;
+				display: block;
+			}
+			
+			.solutions-carousel-item-link .polaris-carousel-direct-link:hover {
+				color: #898989;
+			}
+			
+			.solutions-carousel-item-link .polaris-carousel-direct-link .polaris-plus {
+				display: inline-block;
+				margin-left: 4px;
+				top: 3px;
+			}
+
+/**
+ * Testimonial Block
+ */
+#block-cinder-client-testimonial {
+	height: 390px;
+}
+
+	.client-testimonial-block {
+		width: 100%;
+		height: 390px;
+		position: absolute;
+		left: 0;
+		background: #300839 url(../images/testimonials/block-background.jpg) no-repeat center top;
+		color: #fff;
+	}
+		
+		.testimonial-node-body {
+			width: 100%;
+			height: 340px;
+			display: table-cell;
+			vertical-align: middle;
+			font-size: 2.2em;
+			font-family: "Alright Sans", sans-serif;
+			font-weight: 400;
+			text-align: center;
+			line-height: 1.4em;
+			color: #fff;
+		}
+		
+		.small-text .testimonial-node-body {
+			font-size: 1.8em;
+		}
+		
+		.testimonial-node-quote {
+			display: block;
+			width: 68%;
+			padding: 0 16%;
+		}
+		
+		.testimonial-node-quote:before,
+		.testimonial-node-quote:after {
+			font-size: 2.3em;
+			font-family: "Alright Sans Medium", sans-serif;
+			line-height: 20px;
+			position: relative;
+			top: 33px;
+			filter: alpha(opacity=0);
+		}
+		
+		.testimonial-node-quote:before {
+			content: "“";
+			margin-right: 4px;
+			margin-left: -10px; /* give it a little shift to the left to make up for some of the quote */
+		}
+		
+		.testimonial-node-quote:after {
+			content: "”";
+			margin-left: 4px;
+		}
+		
+		.small-text .testimonial-node-quote:before,
+		.small-text .testimonial-node-quote:after {
+			top: 26px;
+		}
+		
+		.small-text .testimonial-node-quote:before {
+			margin-right: 3px;
+		}
+		
+		.small-text .testimonial-node-quote:after {
+			top: 27px;
+			margin-left: 3px;
+		}
+		
+		.testimonial-node-attribution {
+			width: 68%;
+			margin: 5px auto 0;
+			text-align: center;
+			font-size: 0.6em;
+			font-family: "Alright Sans", sans-serif;
+		}
+		
+			.client-testimonial-block .testimonial-node-attribution .organization-icon {
+				height: 41px;
+				display: inline-block;
+				background-image: url(../images/main/imagemap.png);
+				background-repeat: no-repeat;
+				margin-right: 15px;
+				position: relative;
+				top: 15px;
+			}
+		
+			.client-testimonial-block .testimonial-node-attribution .organization-icon.dell {
+				width: 41px;
+				background-position: -72px -170px;
+				top: 12px;
+			}
+		
+			.client-testimonial-block .testimonial-node-attribution .organization-icon.johnson-johnson {
+				width: 143px;
+				background-position: -114px -170px;
+			}
+		
+			.client-testimonial-block .testimonial-node-attribution .organization-icon.tyco {
+				width: 67px;
+				background-position: -258px -170px;
+			}
+		
+			.client-testimonial-block .testimonial-node-attribution .organization-icon.bank-of-america {
+				width: 143px;
+				background-position: -72px -211px;
+			}
+		
+			.client-testimonial-block .testimonial-node-attribution .organization-icon.goldman-sachs {
+				width: 41px;
+				background-position: -218px -211px;
+			}
+	
+		.client-testimonial-block .polaris-carousel-bullet-list {
+			bottom: 40px;
+		}
+
+/**
+ * Client Showcase Block
+ */
+.client-showcase-cinderblock {
+}
+
+#block-cinder-client-showcase-top .client-showcase-cinderblock {
+	height: 180px;
+}
+
+#block-cinder-client-showcase-bottom .client-showcase-cinderblock {
+	height: 160px;
+	padding-bottom: 40px;
+}
+
+	.client-showcase-cinderblock-inner {
+		width: 100%;
+		position: absolute;
+		left: 0;
+	}
+
+	#block-cinder-client-showcase-top .client-showcase-cinderblock-inner {
+		height: 180px;
+		background: #F9F9F9 url(../images/testimonials/client-showcase-shadow.png) repeat-x center 0px;
+	}
+
+	#block-cinder-client-showcase-bottom .client-showcase-cinderblock-inner {
+		height: 160px;
+		background: #F9F9F9 url(../images/testimonials/client-showcase-shadow.png) repeat-x center 0px;
+	}
+	
+	.client-showcase-title {
+		width: 100%;
+		text-align: center;
+		font-family: "Alright Sans Light", sans-serif;
+		font-size: 1.66em;
+		color: #414042;
+	}
+
+	#block-cinder-client-showcase-bottom .client-showcase-title {
+		padding-top: 20px;
+	}
+
+	#block-cinder-client-showcase-top .client-showcase-title {
+		padding-top: 30px;
+		color: #764980;
+	}
+	
+	.client-showcase-list {
+		width: 100%;
+		text-align: center;
+	}
+	
+	#block-cinder-client-showcase-bottom .client-showcase-list {
+		height: 100px;
+	}
+	
+	#block-cinder-client-showcase-top .client-showcase-list {
+		height: 100px;
+	}
+		
+		.client-showcase-list ul {
+			max-width: 970px;
+			min-width: 800px;
+			padding: 0 20px;
+			margin: 0 auto;
+			display: table;
+			height: 100px;
+			text-align: center;
+		}
+		
+		.client-showcase-list-item {
+			height: 100px;
+			text-transform: uppercase;
+			display: table-cell;
+			vertical-align: middle;
+			text-align: center;
+			padding: 0 20px;
+		}
+	
+		#block-cinder-client-showcase-top .client-showcase-list-item {
+			height: 100px;
+		}
+		
+			.client-showcase-list-link {
+				max-width: 200px;
+				display: block;
+				margin: 0;
+				font-size: 1.1em;
+				font-family: "Alright Sans Medium", sans-serif;
+				text-align: center;
+			}
+		
+			#block-cinder-client-showcase-top .client-showcase-list-link {
+				margin: 0;
+			}
+			
+			/*
+			.client-showcase-list-link.johnson--johnson {
+				width: 231px;
+				background-position: -74px -251px;
+			}
+		
+			.client-showcase-list-link.bank-of-america {
+				width: 196px;
+				background-position: -74px -322px;
+			}
+		
+			.client-showcase-list-link.goldman-sachs {
+				width: 110px;
+				background-position: -74px -396px;
+			}
+		
+			.client-showcase-list-link.tyco {
+				width: 112px;
+				background-position: -187px -396px;
+			}
+		
+			.client-showcase-list-link.dell {
+				width: 73px;
+				background-position: 0 -352px;
+				top: 12px;
+			}
+			*/
+			
+/**
+ * News and Events Block and Careers Block
+ */
+#block-cinder-news-events {
+	margin-top: 35px;
+}
+	
+	.block-cinder .news-node-list {
+		width: 61%;
+		float: left;
+	}
+	
+	.block-cinder .event-node-list {
+		width: 31%;
+		float: right;
+	}
+	
+		.block-cinder .node-list-name {
+			font-family: "Alright Sans Light", sans-serif;
+			font-size: 2.33em;
+			padding-bottom: 6px;
+		}
+	
+		#block-cinder-news-events .node {
+			padding: 15px 0;
+			border-top: 1px solid #787878;
+		}
+	
+		.news-date,
+		.block-cinder .event-date {
+			font-family: "Alright Sans Light", sans-serif;
+			font-size: 1.14em;
+			color: #764980;
+		}
+	
+		.block-cinder .news-summary,
+		.block-cinder .event-summary {
+			font-size: .85em;
+			margin-bottom: 10px;
+		}
+		
+		.block-cinder .news-full-open-link,
+		.block-cinder .event-full-open-link {
+			font-family: "Alright Sans", sans-serif;
+			font-size: .85em;
+			color: #764980;
+		}
+		
+		.block-cinder .news-full-open-link:hover,
+		.block-cinder .event-full-open-link:hover {
+			color: #898989;
+		}
+	
+		.news-title,
+		.block-cinder .event-title {
+			font-family: "Alright Sans", sans-serif;
+			font-size: 1.4em;
+			line-height: 1.2em;
+			padding-bottom: 8px;
+			padding-top: 1px;
+		}
+	
+		.block-cinder .news-summary {
+			font-size: .85em;
+		}
+		
+		.block-cinder .career-title-text {
+			font-size: 1.42em;
+			line-height: 1.2em;
+			display: block;
+			padding-top: 35px;
+		}
+		
+		.block-cinder .career-department-text {
+			font-size: 1.08em;
+			font-family: "Alright Sans", sans-serif;
+			padding-bottom: 8px;
+			display: block;
+		}
+		
+		.block-cinder .career-view-link {
+			font-size: .85em;
+		}
+
+#block-cinder-career-nodes {
+	margin: 50px 0 10px;
+}
+		
+	#block-cinder-career-nodes .node-list-name {
+		border-bottom: 1px solid #787878;
+	}
+	
+	#block-cinder-career-nodes .node-career {
+		width: 30%;
+		padding-right: 3.33%;
+		border: none;
+		float: left;
+	}
+
+#block-cinder-careers-sidebar {
+	width: 22.5%;
+	float: right;
+}
+		
+	#block-cinder-careers-sidebar .node-list-name {
+		font-size: 1.867em;
+		margin-bottom: 20px;
+	}
+	
+	#block-cinder-careers-sidebar .node-career {
+		margin-bottom: 35px;
+	}
+		
+	#block-cinder-careers-sidebar .career-title-text {
+		font-size: 1em;
+		line-height: 1.2em;
+		display: block;
+		padding-top: 0;
+	}
+	
+	#block-cinder-careers-sidebar .career-view-link {
+		font-size: .85em;
+	}
+	
+/**
+ * Contact Info Form Block
+ */
+#block-cinder-contact-info {
+	margin-bottom: 35px;
+	padding-bottom: 25px;
+	border-bottom: 2px solid #f4f4f4;
+	font-family: "Alright Sans", sans-serif;
+	padding-right: 38%;
+	font-size: .84em;
+	position: relative;
+	z-index: 10;
+}
+	
+	#block-cinder-contact-info .label {
+		font-family: "Alright Sans Medium", sans-serif;
+	}
+		
+	#block-cinder-contact-info .contact-info-map {
+		width: 310px;
+		height: 181px;
+		display: block;
+		position: absolute;
+		right: 1%;
+		top: 1%;
+		background: url(../images/forms/imagemap.png) no-repeat -90px -76px;
+	}
+	
+	.contact-info-email-list {
+		float: left;
+		margin-bottom: 35px;
+	}
+	
+	.contact-info-phone-list {
+		float: left;
+		clear: left;
+	}
+	
+		.contact-info-list-item {
+			
+		}
+	
+	.contact-info-location-list {
+		float: right;
+	}
+	
+		.contact-info-location-list .node-location {
+			margin-top: 35px;
+		}
+	
+		.contact-info-location-list .node-location:first-of-type {
+			margin-top: 0;
+		}
+	
+			.contact-info-location-list .location-address-street {
+			}
+		
+			.contact-info-location-list .location-address-citystate {
+			}
+		
+			.contact-info-location-list .location-country {
+			}
+		
+			.contact-info-location-list .location-title {
+			}
+		
+			.contact-info-location-list .location-title {
+			}
+	
+
+
+
+
+

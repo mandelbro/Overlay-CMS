@@ -1,0 +1,17 @@
+name = JSON
+description = A theme that outputs JSON
+package = Core
+version = VERSION
+core = 7.x
+
+; add boilerplate javascript
+
+; define regions
+regions[content] = Content
+regions[content_top] = Content Top
+regions[content_bottom] = Content Bottom
+regions[help] = Help
+regions[header] = Page header
+regions[footer] = Footer
+regions[sidebar_first] = Left sidebar
+regions[sidebar_second] = Right

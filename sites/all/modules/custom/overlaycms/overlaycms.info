@@ -1,0 +1,7 @@
+name = Overlay CMS
+description = A radically new way of managing content with Drupal.
+package = Overlay CMS
+dependencies[] = ctools
+dependencies[] = hero
+core = 7.x
+

@@ -6,10 +6,6 @@
 function ursaminor_preprocess_html(&$vars) {
   // Add conditional CSS for IE8 and below.
   drupal_add_css(path_to_theme() . '/css/ie.css', array('group' => CSS_THEME, 'browsers' => array('IE' => 'lt IE 9', '!IE' => FALSE), 'weight' => 999, 'preprocess' => FALSE));
-	// check for an ajax request
-	if(isset($_REQUEST['ajax']) && $_REQUEST['ajax'] == 'true') {
-		$vars['theme_hook_suggestions'][] = 'html__json'; //use the ajax json template
-	}
 }
 
 /**
@@ -34,11 +30,6 @@ function ursaminor_preprocess_page(&$vars) {
 	if(!empty($vars['page']['content']['system_main']['content_top'])) {
 		$vars['page']['content_top'] += $vars['page']['content']['system_main']['content_top'];
 		unset($vars['page']['content']['system_main']['content_top']);
-	}
-	
-	// check for an ajax request
-	if(isset($_REQUEST['ajax']) && $_REQUEST['ajax'] == 'true') {
-		$vars['theme_hook_suggestions'][] = 'page__json'; //use the ajax json template
 	}
 	
 	$vars['linkedin_url'] = theme_get_setting('linkedin_link');

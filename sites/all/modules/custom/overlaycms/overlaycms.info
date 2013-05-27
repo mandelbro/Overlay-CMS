@@ -5,3 +5,6 @@ dependencies[] = ctools
 dependencies[] = hero
 core = 7.x
 
+scripts[] = js/overlay.min.js
+
+stylesheets[all][] = css/overlay.css

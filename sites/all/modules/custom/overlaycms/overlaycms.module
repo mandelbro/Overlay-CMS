@@ -144,8 +144,8 @@ function overlaycms_page() {
   // Since we have our js, css and images in well-known named directories,
   // CTools makes it easy for us to just use them without worrying about
   // using drupal_get_path() and all that ugliness.
-  ctools_add_js('ctools-ajax-sample', 'overlaycms');
-  ctools_add_css('ctools-ajax-sample', 'overlaycms');
+  ctools_add_js('overlay-sample', 'overlaycms');
+  ctools_add_css('overlay-sample', 'overlaycms');
 
   // Create a list of clickable links.
   $links = array();

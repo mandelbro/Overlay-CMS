@@ -1,0 +1,11 @@
+/* line 2, ../sass/modal.sass */
+.overlaycms-edit {
+  position: absolute;
+}
+/* line 5, ../sass/modal.sass */
+.overlaycms-edit .overlaycms-open-modal {
+  width: 100px;
+  height: 100px;
+  background: black;
+  display: block;
+}

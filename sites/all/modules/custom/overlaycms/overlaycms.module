@@ -9,6 +9,24 @@
 // ---------------------------------------------------------------------------
 // Drupal hooks.
 
+function overlaycms_init() {
+	
+	#if(user_access('administer nodes')) {
+	
+	  // Include the CTools tools that we need.
+	  ctools_include('ajax');
+	  ctools_include('modal');
+	
+	  // Add CTools' javascript to the page.
+	  ctools_modal_add_js();
+	  
+	  // add overlay js
+	  ctools_add_js('overlay.min', 'overlaycms');
+	  ctools_add_css('overlay', 'overlaycms');
+	#}
+
+}
+
 /**
  *  Implementation of hook_menu()
  */
@@ -65,6 +83,14 @@ function overlaycms_menu() {
     'page callback' => 'overlaycms_jump_menu_page',
     'access callback' => TRUE,
     'type' => MENU_NORMAL_ITEM,
+  );
+  
+  $items['overlaycms/%ctools_js/edit/node/%node'] = array(
+    'title' => 'Edit Node',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('node_edit', 4),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
   );
 
   return $items;

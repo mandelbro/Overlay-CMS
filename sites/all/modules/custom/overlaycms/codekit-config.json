@@ -24,15 +24,15 @@
       "outputAbbreviatedPath" : "\/js\/overlay.min.js",
       "fileType" : 64
     },
-    "\/js\/controller.js" : {
+    "\/js\/parse.js" : {
       "ignoreWasSetByUser" : 1,
       "ignore" : 1,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/js\/controller.js",
+      "inputAbbreviatedPath" : "\/js\/parse.js",
       "outputStyle" : 1,
       "syntaxCheckerStyle" : 0,
-      "outputAbbreviatedPath" : "\/js\/controller.min.js",
+      "outputAbbreviatedPath" : "\/js\/parse.min.js",
       "fileType" : 64
     },
     "\/js\/view.js" : {
@@ -46,25 +46,28 @@
       "outputAbbreviatedPath" : "\/js\/view.min.js",
       "fileType" : 64
     },
-    "\/images\/popups-border.png" : {
+    "\/sass\/modal.sass" : {
       "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
+      "ignore" : 1,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/images\/popups-border.png",
-      "processed" : 0,
-      "outputAbbreviatedPath" : "\/images\/popups-border.png",
-      "initialSize" : 380,
-      "fileType" : 8192
+      "inputAbbreviatedPath" : "\/sass\/modal.sass",
+      "outputStyle" : 0,
+      "shouldRunBless" : 0,
+      "outputAbbreviatedPath" : "\/css\/modal.css",
+      "fileType" : 2,
+      "debugStyle" : 0
     },
-    "\/css\/overlay-sample.css" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
+    "\/js\/controller.js" : {
+      "ignoreWasSetByUser" : 1,
+      "ignore" : 1,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/css\/overlay-sample.css",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 16
+      "inputAbbreviatedPath" : "\/js\/controller.js",
+      "outputStyle" : 1,
+      "syntaxCheckerStyle" : 0,
+      "outputAbbreviatedPath" : "\/js\/controller.min.js",
+      "fileType" : 64
     },
     "\/css\/overlay.css" : {
       "ignoreWasSetByUser" : 0,
@@ -98,28 +101,25 @@
       "outputAbbreviatedPath" : "\/js\/overlay-sample.min.js",
       "fileType" : 64
     },
-    "\/sass\/modal.sass" : {
+    "\/images\/popups-border.png" : {
       "ignoreWasSetByUser" : 0,
-      "ignore" : 1,
+      "ignore" : 0,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/sass\/modal.sass",
-      "outputStyle" : 0,
-      "shouldRunBless" : 0,
-      "outputAbbreviatedPath" : "\/css\/modal.css",
-      "fileType" : 2,
-      "debugStyle" : 0
+      "inputAbbreviatedPath" : "\/images\/popups-border.png",
+      "processed" : 0,
+      "outputAbbreviatedPath" : "\/images\/popups-border.png",
+      "initialSize" : 380,
+      "fileType" : 8192
     },
-    "\/js\/parse.js" : {
-      "ignoreWasSetByUser" : 1,
-      "ignore" : 1,
+    "\/css\/overlay-sample.css" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/js\/parse.js",
-      "outputStyle" : 1,
-      "syntaxCheckerStyle" : 0,
-      "outputAbbreviatedPath" : "\/js\/parse.min.js",
-      "fileType" : 64
+      "inputAbbreviatedPath" : "\/css\/overlay-sample.css",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 16
     }
   },
   "manualImportLinks" : [

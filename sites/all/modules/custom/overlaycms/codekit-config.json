@@ -35,16 +35,37 @@
       "outputAbbreviatedPath" : "\/js\/parse.min.js",
       "fileType" : 64
     },
-    "\/js\/controller.js" : {
+    "\/js\/view.js" : {
       "ignoreWasSetByUser" : 1,
       "ignore" : 1,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/js\/controller.js",
+      "inputAbbreviatedPath" : "\/js\/view.js",
       "outputStyle" : 1,
       "syntaxCheckerStyle" : 0,
-      "outputAbbreviatedPath" : "\/js\/controller.min.js",
+      "outputAbbreviatedPath" : "\/js\/view.min.js",
       "fileType" : 64
+    },
+    "\/sass\/modal.sass" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/sass\/modal.sass",
+      "outputStyle" : 0,
+      "shouldRunBless" : 0,
+      "outputAbbreviatedPath" : "\/css\/modal.css",
+      "fileType" : 2,
+      "debugStyle" : 0
+    },
+    "\/css\/overlay.css" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/css\/overlay.css",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 16
     },
     "\/images\/popups-border.png" : {
       "ignoreWasSetByUser" : 0,
@@ -56,24 +77,6 @@
       "outputAbbreviatedPath" : "\/images\/popups-border.png",
       "initialSize" : 380,
       "fileType" : 8192
-    },
-    "\/css\/overlay.css" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 1,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/css\/overlay.css",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 16
-    },
-    "\/css\/overlay-sample.css" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/css\/overlay-sample.css",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 16
     },
     "\/sass\/overlay.sass" : {
       "ignoreWasSetByUser" : 0,
@@ -98,28 +101,25 @@
       "outputAbbreviatedPath" : "\/js\/overlay-sample.min.js",
       "fileType" : 64
     },
-    "\/js\/view.js" : {
+    "\/css\/overlay-sample.css" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/css\/overlay-sample.css",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 16
+    },
+    "\/js\/controller.js" : {
       "ignoreWasSetByUser" : 1,
       "ignore" : 1,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/js\/view.js",
+      "inputAbbreviatedPath" : "\/js\/controller.js",
       "outputStyle" : 1,
       "syntaxCheckerStyle" : 0,
-      "outputAbbreviatedPath" : "\/js\/view.min.js",
+      "outputAbbreviatedPath" : "\/js\/controller.min.js",
       "fileType" : 64
-    },
-    "\/sass\/modal.sass" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 1,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/sass\/modal.sass",
-      "outputStyle" : 0,
-      "shouldRunBless" : 0,
-      "outputAbbreviatedPath" : "\/css\/modal.css",
-      "fileType" : 2,
-      "debugStyle" : 0
     }
   },
   "manualImportLinks" : [

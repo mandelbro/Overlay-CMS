@@ -1,6 +1,6 @@
-(function($){
+;(function($){
 
-  Drupal.overlayCMS = Drupal.OverlayCMS || {};
+  Drupal.overlayCMS = Drupal.OverlayCMS || new OverlayCMS();
   
   Drupal.behaviors.overlayCMSparseData = {
     attach : function() {
@@ -8,17 +8,18 @@
     }
   };
   
-  Drupal.overlayCMS.parse = function() {
+  function OverlayCMS() {
+  }
+  
+  OverlayCMS.prototype.parse = function() {
 		$('*[data-nid]').each(function() {
 			var $element = $(this);
 			// insert the editor element
 			$element.append(Drupal.theme('overlaycmsEditTools', $element.data('nid')));
-			
-			console.log(Drupal.behaviors.ZZCToolsModal);
+			// run the chaos tools modal parser
 			Drupal.behaviors.ZZCToolsModal.attach();
-			// figure out if we need to run the chaos tools modal parser
 			// profit
 		});
 	};
 	
-})(jQuery)
+})(jQuery);

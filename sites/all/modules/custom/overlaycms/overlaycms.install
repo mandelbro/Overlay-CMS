@@ -1,0 +1,15 @@
+<?php
+
+
+/**
+ * Implements hook_install
+ */
+function overlaycms_install() {
+
+// update the module weight for overlaycms
+
+  db_update('system')
+    ->fields(array('weight' => 9999))
+    ->condition('name', 'overlaycms', '=')
+    ->execute();
+}

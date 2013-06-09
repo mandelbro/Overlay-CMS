@@ -15,7 +15,11 @@
 		$('*[data-nid]').each(function() {
 			var $element = $(this);
 			// insert the editor element
-			$element.append(Drupal.theme('overlaycmsEditTools', $element.data('nid')));
+			$element.append(Drupal.theme('overlaycmsEditTools', {
+				'nid' : $element.data('nid'),
+				'fields' : $element.data('fields'),
+				'type' : 'edit'
+			}));
 			// run the chaos tools modal parser
 			Drupal.behaviors.ZZCToolsModal.attach();
 			// profit

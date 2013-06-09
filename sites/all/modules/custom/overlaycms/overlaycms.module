@@ -117,10 +117,16 @@ function overlaycms_theme() {
 
 function overlaycms_form_alter(&$form, &$form_state, $form_id) {
 
-	// predie($form_state);
-
 	// add the ajax info to the form state
 	if(strpos($form_id, 'node_form') > 0) _overlaycms_add_ctools_to_form($form_state);
+		
+	// determine if there is a restriction on the fields to show
+	if(!empty($form_state['fields'])) {
+	//	predie($form);
+		$fields = $form_state['fields'];
+		_overlaycms_process_hidden_fields($form, $fields);
+		
+	}
 	
 }
 
@@ -184,20 +190,22 @@ function overlaycms_page($section, $js = FALSE, $node = NULL) {
   
   switch ($section) {
   	case 'node.edit' :
-  		// include node pages module
+  		// include node pages file
 		  ctools_include('node.pages', 'node', '');
 		  
+		  // determine the fields to display
+		  $fields = !empty($_GET['fields']) ? explode(',', $_GET['fields']) : NULL;
 		  $form_state = array(
 		    'title' => "Editing {$node->type}: {$node->title}",
 		    'ajax'  => TRUE,
 		    'build_info' => array(
 		      'args'  => array($node),
 		    ),
+		    'fields' => $fields,
 		  );
 		  
   	  $output = ctools_modal_form_wrapper($node->type . '_node_form', $form_state);
   		// print array('test test');
-  		
 		  print ajax_render($output);
   		exit;
   		break;
@@ -218,7 +226,7 @@ function overlaycms_page($section, $js = FALSE, $node = NULL) {
 	          'background-color' => '#000',
 	        ),
 	        'animation' => 'fadeIn',
-	        'modalTheme' => 'CToolsSampleModal',
+	        'modalTheme' => 'overlaycmsNodeForm',
 	        'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'overlaycms'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
 	      ),
 	    );
@@ -244,7 +252,7 @@ function overlaycms_page($section, $js = FALSE, $node = NULL) {
 	    }
 	  
 	    // Four ways to do our animal picking wizard.
-	    $button_form = overlaycms_ajax_button_form();
+	    $button_form = ctools_sample_ajax_button_form();
 	    $links[] = l(t('Wizard (no modal)'), 'overlaycms/nojs/animal');
 	    $links[] = ctools_modal_text_button(t('Wizard (default modal)'), 'overlaycms/nojs/animal', t('Pick an animal'));
 	    $links[] = ctools_modal_text_button(t('Wizard (custom modal)'), 'overlaycms/nojs/animal', t('Pick an animal'),  'ctools-modal-ctools-sample-style');
@@ -301,219 +309,6 @@ function overlaycms_page($section, $js = FALSE, $node = NULL) {
   }
 }
 
-/**
- * Returns a "take it all over" hello world style request.
- */
-function overlaycms_hello($js = NULL) {
-  $output = '<h1>' . t('Hello World') . '</h1>';
-  if ($js) {
-    ctools_include('ajax');
-    $commands = array();
-    $commands[] = ajax_command_html('#ctools-sample', $output);
-    print ajax_render($commands); // this function exits.
-    exit;
-  }
-  else {
-    return $output;
-  }
-}
-
-/**
- *  Nix a row from a table and restripe.
- */
-function overlaycms_tablenix($js, $row) {
-  if (!$js) {
-    // We don't support degrading this from js because we're not
-    // using the server to remember the state of the table.
-    return MENU_ACCESS_DENIED;
-  }
-  ctools_include('ajax');
-
-  $commands = array();
-  $commands[] = ajax_command_remove("tr.ajax-sample-row-$row");
-  $commands[] = ajax_command_restripe("table.ajax-sample-table");
-  print ajax_render($commands);
-  exit;
-}
-
-/**
- * A modal login callback.
- */
-function overlaycms_login($js = NULL) {
-  // Fall back if $js is not set.
-  if (!$js) {
-    return drupal_get_form('user_login');
-  }
-
-  ctools_include('modal');
-  ctools_include('ajax');
-  $form_state = array(
-    'title' => t('Login'),
-    'ajax' => TRUE,
-  );
-  $output = ctools_modal_form_wrapper('user_login', $form_state);
-  if (!empty($form_state['executed'])) {
-    // We'll just overwrite the form output if it was successful.
-    $output = array();
-    $inplace = ctools_ajax_text_button(t('remain here'), 'overlaycms/nojs/login/inplace', t('Go to your account'));
-    $account = ctools_ajax_text_button(t('your account'), 'overlaycms/nojs/login/user', t('Go to your account'));
-    $output[] = ctools_modal_command_display(t('Login Success'), '<div class="modal-message">Login successful. You can now choose whether to '. $inplace .', or go to '. $account.'.</div>');
-  }
-  print ajax_render($output);
-  exit;
-}
-
-/**
- * Post-login processor: should we go to the user account or stay in place?
- */
-function overlaycms_login_success($js, $action) {
-  if (!$js) {
-    // we should never be here out of ajax context
-    return MENU_NOT_FOUND;
-  }
-
-  ctools_include('ajax');
-  ctools_add_js('ajax-responder');
-  $commands = array();
-  if ($action == 'inplace') {
-    // stay here
-    $commands[] = ctools_ajax_command_reload();
-  }
-  else {
-    // bounce bounce
-    $commands[] = ctools_ajax_command_redirect('user');
-  }
-  print ajax_render($commands);
-  exit;
-}
-
-/**
- * A modal login callback.
- */
-function overlaycms_animal($js = NULL, $step = NULL) {
-  if ($js) {
-    ctools_include('modal');
-    ctools_include('ajax');
-  }
-
-  $form_info = array(
-    'id' => 'animals',
-    'path' => "overlaycms/" . ($js ? 'ajax' : 'nojs') . "/animal/%step",
-    'show trail' => TRUE,
-    'show back' => TRUE,
-    'show cancel' => TRUE,
-    'show return' => FALSE,
-    'next callback' =>  'overlaycms_wizard_next',
-    'finish callback' => 'overlaycms_wizard_finish',
-    'cancel callback' => 'overlaycms_wizard_cancel',
-   // this controls order, as well as form labels
-    'order' => array(
-      'start' => t('Choose animal'),
-    ),
-   // here we map a step to a form id.
-    'forms' => array(
-      // e.g. this for the step at wombat/create
-      'start' => array(
-        'form id' => 'overlaycms_start'
-      ),
-    ),
-  );
-
-  // We're not using any real storage here, so we're going to set our
-  // object_id to 1. When using wizard forms, id management turns
-  // out to be one of the hardest parts. Editing an object with an id
-  // is easy, but new objects don't usually have ids until somewhere
-  // in creation.
-  //
-  // We skip all this here by just using an id of 1.
-
-  $object_id = 1;
-
-  if (empty($step)) {
-    // We reset the form when $step is NULL because that means they have
-    // for whatever reason started over.
-    overlaycms_cache_clear($object_id);
-    $step = 'start';
-  }
-
-  // This automatically gets defaults if there wasn't anything saved.
-  $object = overlaycms_cache_get($object_id);
-
-  $animals = overlaycms_animals();
-
-  // Make sure we can't somehow accidentally go to an invalid animal.
-  if (empty($animals[$object->type])) {
-    $object->type = 'unknown';
-  }
-
-  // Now that we have our object, dynamically add the animal's form.
-  if ($object->type == 'unknown') {
-    // If they haven't selected a type, add a form that doesn't exist yet.
-    $form_info['order']['unknown'] = t('Configure animal');
-    $form_info['forms']['unknown'] = array('form id' => 'nothing');
-  }
-  else {
-    // Add the selected animal to the order so that it shows up properly in the trail.
-    $form_info['order'][$object->type] = $animals[$object->type]['config title'];
-  }
-
-  // Make sure all animals forms are represented so that the next stuff can
-  // work correctly:
-  foreach ($animals as $id => $animal) {
-    $form_info['forms'][$id] = array('form id' => $animals[$id]['form']);
-  }
-
-  $form_state = array(
-    'ajax' => $js,
-    // Put our object and ID into the form state cache so we can easily find
-    // it.
-    'object_id' => $object_id,
-    'object' => &$object,
-  );
-
-  // Send this all off to our form. This is like drupal_get_form only wizardy.
-  ctools_include('wizard');
-  $form = ctools_wizard_multistep_form($form_info, $step, $form_state);
-  $output = drupal_render($form);
-
-  if ($output === FALSE || !empty($form_state['complete'])) {
-    // This creates a string based upon the animal and its setting using
-    // function indirection.
-    $animal = $animals[$object->type]['output']($object);
-  }
-
-  // If $output is FALSE, there was no actual form.
-  if ($js) {
-    // If javascript is active, we have to use a render array.
-    $commands = array();
-    if ($output === FALSE || !empty($form_state['complete'])) {
-      // Dismiss the modal.
-      $commands[] = ajax_command_html('#ctools-sample', $animal);
-      $commands[] = ctools_modal_command_dismiss();
-    }
-    else if (!empty($form_state['cancel'])) {
-      // If cancelling, return to the activity.
-      $commands[] = ctools_modal_command_dismiss();
-    }
-    else {
-      $commands = ctools_modal_form_render($form_state, $output);
-    }
-    print ajax_render($commands);
-    exit;
-  }
-  else {
-    if ($output === FALSE || !empty($form_state['complete'])) {
-      return $animal;
-    }
-    else if (!empty($form_state['cancel'])) {
-      drupal_goto('overlaycms');
-    }
-    else {
-      return $output;
-    }
-  }
-}
-
 // ---------------------------------------------------------------------------
 // Themes
 
@@ -531,35 +326,6 @@ function theme_overlaycms_container($vars) {
 // ---------------------------------------------------------------------------
 // Stuff needed for our little wizard.
 
-/**
- * Get a list of our animals and associated forms.
- *
- * What we're doing is making it easy to add more animals in just one place,
- * which is often how it will work in the real world. If using CTools, what
- * you would probably really have, here, is a set of plugins for each animal.
- */
-function overlaycms_animals() {
-  return array(
-    'sheep' => array(
-      'title' => t('Sheep'),
-      'config title' => t('Configure sheep'),
-      'form' => 'overlaycms_configure_sheep',
-      'output' => 'overlaycms_show_sheep',
-    ),
-    'lizard' => array(
-      'title' => t('Lizard'),
-      'config title' => t('Configure lizard'),
-      'form' => 'overlaycms_configure_lizard',
-      'output' => 'overlaycms_show_lizard',
-    ),
-    'raptor' => array(
-      'title' => t('Raptor'),
-      'config title' => t('Configure raptor'),
-      'form' => 'overlaycms_configure_raptor',
-      'output' => 'overlaycms_show_raptor',
-    ),
-  );
-}
 
 // ---------------------------------------------------------------------------
 // Wizard caching helpers.
@@ -596,250 +362,6 @@ function overlaycms_cache_clear($id) {
   ctools_object_cache_clear('overlaycms', $id);
 }
 
-// ---------------------------------------------------------------------------
-// Wizard in-between helpers; what to do between or after forms.
-
-/**
- * Handle the 'next' click on the add/edit pane form wizard.
- *
- * All we need to do is store the updated pane in the cache.
- */
-function overlaycms_wizard_next(&$form_state) {
-  overlaycms_cache_set($form_state['object_id'], $form_state['object']);
-}
-
-/**
- * Handle the 'finish' click on teh add/edit pane form wizard.
- *
- * All we need to do is set a flag so the return can handle adding
- * the pane.
- */
-function overlaycms_wizard_finish(&$form_state) {
-  $form_state['complete'] = TRUE;
-}
-
-/**
- * Handle the 'cancel' click on the add/edit pane form wizard.
- */
-function overlaycms_wizard_cancel(&$form_state) {
-  $form_state['cancel'] = TRUE;
-}
-
-// ---------------------------------------------------------------------------
-// Wizard forms for our simple info collection wizard.
-
-/**
- * Wizard start form. Choose an animal.
- */
-function overlaycms_start($form, &$form_state) {
-  $form_state['title'] = t('Choose animal');
-
-  $animals = overlaycms_animals();
-  foreach ($animals as $id => $animal) {
-    $options[$id] = $animal['title'];
-  }
-
-  $form['type'] = array(
-    '#title' => t('Choose your animal'),
-    '#type' => 'radios',
-    '#options' => $options,
-    '#default_value' => $form_state['object']->type,
-    '#required' => TRUE,
-  );
-
-  return $form;
-}
-
-/**
- * They have selected a sheep. Set it.
- */
-function overlaycms_start_submit(&$form, &$form_state) {
-  $form_state['object']->type = $form_state['values']['type'];
-  // Override where to go next based on the animal selected.
-  $form_state['clicked_button']['#next'] = $form_state['values']['type'];
-}
-
-/**
- * Wizard form to configure your sheep.
- */
-function overlaycms_configure_sheep($form, &$form_state) {
-  $form_state['title'] = t('Configure sheep');
-
-  $form['name'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Name your sheep'),
-    '#default_value' => $form_state['object']->name,
-    '#required' => TRUE,
-  );
-
-  $form['sheep'] = array(
-    '#title' => t('What kind of sheep'),
-    '#type' => 'radios',
-    '#options' => array(
-      t('Wensleydale') => t('Wensleydale'),
-      t('Merino') => t('Merino'),
-      t('Corriedale') => t('Coriedale'),
-    ),
-    '#default_value' => !empty($form_state['object']->sheep) ? $form_state['object']->sheep : '',
-    '#required' => TRUE,
-  );
-  return $form;
-}
-
-/**
- * Submit the sheep and store the values from the form.
- */
-function overlaycms_configure_sheep_submit(&$form, &$form_state) {
-  $form_state['object']->name = $form_state['values']['name'];
-  $form_state['object']->sheep = $form_state['values']['sheep'];
-}
-
-/**
- * Provide some output for our sheep.
- */
-function overlaycms_show_sheep($object) {
-  return t('You have a @type sheep named "@name".', array(
-    '@type' => $object->sheep,
-    '@name' => $object->name,
-  ));
-}
-
-/**
- * Wizard form to configure your lizard.
- */
-function overlaycms_configure_lizard($form, &$form_state) {
-  $form_state['title'] = t('Configure lizard');
-
-  $form['name'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Name your lizard'),
-    '#default_value' => $form_state['object']->name,
-    '#required' => TRUE,
-  );
-
-  $form['lizard'] = array(
-    '#title' => t('Venomous'),
-    '#type' => 'checkbox',
-    '#default_value' => !empty($form_state['object']->lizard),
-  );
-  return $form;
-}
-
-/**
- * Submit the lizard and store the values from the form.
- */
-function overlaycms_configure_lizard_submit(&$form, &$form_state) {
-  $form_state['object']->name = $form_state['values']['name'];
-  $form_state['object']->lizard = $form_state['values']['lizard'];
-}
-
-/**
- * Provide some output for our raptor.
- */
-function overlaycms_show_lizard($object) {
-  return t('You have a @type lizard named "@name".', array(
-    '@type' => empty($object->lizard) ? t('non-venomous') : t('venomous'),
-    '@name' => $object->name,
-  ));
-}
-
-/**
- * Wizard form to configure your raptor.
- */
-function overlaycms_configure_raptor($form, &$form_state) {
-  $form_state['title'] = t('Configure raptor');
-
-  $form['name'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Name your raptor'),
-    '#default_value' => $form_state['object']->name,
-    '#required' => TRUE,
-  );
-
-  $form['raptor'] = array(
-    '#title' => t('What kind of raptor'),
-    '#type' => 'radios',
-    '#options' => array(
-      t('Eagle') => t('Eagle'),
-      t('Hawk') => t('Hawk'),
-      t('Owl') => t('Owl'),
-      t('Buzzard') => t('Buzzard'),
-    ),
-    '#default_value' => !empty($form_state['object']->raptor) ? $form_state['object']->raptor : '',
-    '#required' => TRUE,
-  );
-
-  $form['domesticated'] = array(
-    '#title' => t('Domesticated'),
-    '#type' => 'checkbox',
-    '#default_value' => !empty($form_state['object']->domesticated),
-  );
-  return $form;
-}
-
-/**
- * Submit the raptor and store the values from the form.
- */
-function overlaycms_configure_raptor_submit(&$form, &$form_state) {
-  $form_state['object']->name = $form_state['values']['name'];
-  $form_state['object']->raptor = $form_state['values']['raptor'];
-  $form_state['object']->domesticated = $form_state['values']['domesticated'];
-}
-
-/**
- * Provide some output for our raptor.
- */
-function overlaycms_show_raptor($object) {
-  return t('You have a @type @raptor named "@name".', array(
-    '@type' => empty($object->domesticated) ? t('wild') : t('domesticated'),
-    '@raptor' => $object->raptor,
-    '@name' => $object->name,
-  ));
-}
-
-/**
- * Helper function to provide a sample jump menu form
- */
-function overlaycms_jump_menu_form() {
-  $url = url('overlaycms/jumped');
-  $form_state = array();
-  $form = ctools_jump_menu(array(), $form_state, array($url => t('Jump!')), array());
-  return $form;
-}
-
-/**
- * Provide a message to the user that the jump menu worked
- */
-function overlaycms_jump_menu_page() {
-  $return_link = l(t('Return to the examples page.'), 'overlaycms');
-  $output = t('You successfully jumped! !return_link', array('!return_link' => $return_link));
-  return $output;
-}
-
-/**
- * Provide a form for an example ajax modal button
- */
-function overlaycms_ajax_button_form() {
-  $form = array();
-
-  $form['url'] = array(
-    '#type' => 'hidden',
-    // The name of the class is the #id of $form['ajax_button'] with "-url"
-    // suffix.
-    '#attributes' => array('class' => array('ctools-ajax-sample-button-url')),
-    '#value' => url('overlaycms/nojs/animal'),
-  );
-
-  $form['ajax_button'] = array(
-    '#type' => 'button',
-    '#value' => 'Wizard (button modal)',
-    '#attributes' => array('class' => array('ctools-use-modal')),
-    '#id' => 'ctools-ajax-sample-button',
-  );
-
-  return $form;
-}
-
 function _overlaycms_add_ctools_to_form(&$form_state) {
 
 	if(arg(0) !== 'overlaycms') return;
@@ -847,5 +369,38 @@ function _overlaycms_add_ctools_to_form(&$form_state) {
 	$form_state += array(
 	  'ajax' => ctools_js_load(arg(1)),
 	);
+
+}
+
+/**
+ * _overlaycms_process_hidden_fields
+ * Adds a hidden wrapper around all fields that are not 
+ * specified to show
+ */
+function _overlaycms_process_hidden_fields(&$form, $fields) {
+	$protected_types = array('actions', 'submit', 'value', 'managed_file', 'form', 'token', 'weight');
+	$hidden_types = array('fieldset', 'container', 'vertical_tabs', 'checkboxes', 'radios');
+	// loop through the form's field => settings pairs
+	foreach($form as $field => &$settings) {
+		// if $settings is not an array, skip
+		if(!is_array($settings) || strpos($field, '#') === 0) continue;
+		// need to do the double check here because an empty string will cause in_array to return true
+		if($field && in_array($field, $fields)) continue;
+		// if it's a string and on the list, skip
+		if(isset($settings['#type']) && in_array($settings['#type'], $hidden_types)) {
+			$settings['#prefix'] = '<div style="display:none;">';
+			$settings['#suffix'] = '</div>';
+			continue;
+		}
+		// if this field array is not empty and doesn't have a #type 
+		if(!empty($settings)) _overlaycms_process_hidden_fields($settings, $fields);
+		// more fine tooth checking of the type attribute
+		if(!isset($settings['#type']) || in_array($settings['#type'], $protected_types)) continue;
+		// convert the field type into a hidden
+		$settings['#type'] = 'hidden';
+		$settings['#default_value'] = !isset($settings['#default_value']) ? NULL : $settings['#default_value'];
+		// prefer the default value if it's present
+		$settings['#value'] = !empty($settings['#value']) ? $settings['#value'] : $settings['#default_value'];
+	}
 
 }

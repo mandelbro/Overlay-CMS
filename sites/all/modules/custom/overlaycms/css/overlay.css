@@ -1,6 +1,7 @@
 /* line 2, ../sass/modal.sass */
 .overlaycms-edit {
   position: absolute;
+  z-index: 999;
 }
 /* line 5, ../sass/modal.sass */
 .overlaycms-edit .overlaycms-open-modal {
@@ -8,4 +9,11 @@
   height: 100px;
   background: black;
   display: block;
+}
+
+#modalContent {
+}
+
+.ctools-overlaycms-modal-content .popups-close .close {
+	color: #000;
 }

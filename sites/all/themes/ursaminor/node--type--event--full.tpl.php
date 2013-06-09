@@ -85,7 +85,7 @@
 
 <article id="event-node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
 	<?php if($node->event_date) : ?><div class="event-date"><?php print $node->event_date; ?></div><?php endif; ?>
-	<div class="event-title"><a class="no-hover activelink active-callback--activelinkOverlay title grey" href="/company/news-and-events#!event-full-node-<?php print $node->nid; ?>" rel="#event-node-<?php print $node->nid; ?>"><?php print $title; ?></a></div>
+	<div class="event-title" data-nid="<?= $node->nid ?>" data-fields="title"><a class="no-hover activelink active-callback--activelinkOverlay title grey" href="/company/news-and-events#!event-full-node-<?php print $node->nid; ?>" rel="#event-node-<?php print $node->nid; ?>"><?php print $title; ?></a></div>
 	<div class="event-summary"<?php print $content_attributes; ?>>
 		<?php print render($node->summary); ?>
 	</div>

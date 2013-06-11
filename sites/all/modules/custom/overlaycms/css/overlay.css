@@ -2,18 +2,33 @@
 .overlaycms-edit {
   position: absolute;
   z-index: 999;
+  top: 0;
+  right: 0;
 }
-/* line 5, ../sass/modal.sass */
+/* line 8, ../sass/modal.sass */
 .overlaycms-edit .overlaycms-open-modal {
-  width: 100px;
-  height: 100px;
+  width: 20px;
+  height: 20px;
   background: black;
   display: block;
+  opacity: 0.2;
+  -webkit-transition: opacity 0.2s ease;
+  -moz-transition: opacity 0.2s ease;
+  -ms-transition: opacity 0.2s ease;
+  -o-transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease;
 }
 
-#modalContent {
+/* line 16, ../sass/modal.sass */
+.overlay-edit-field {
+  position: relative;
+}
+/* line 20, ../sass/modal.sass */
+.overlay-edit-field:hover .overlaycms-open-modal {
+  opacity: 0.5;
 }
 
+/* line 23, ../sass/modal.sass */
 .ctools-overlaycms-modal-content .popups-close .close {
-	color: #000;
+  color: black;
 }

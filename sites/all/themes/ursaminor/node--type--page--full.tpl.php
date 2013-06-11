@@ -83,7 +83,7 @@
  */
 ?>
 
-<section id="page-node-section" class="<?php print $classes; ?>"<?php print $attributes; ?> data-nid="<?= $node->nid ?>" data-fields="image">
+<section id="page-node-section" class="<?php print $classes; ?>"<?php print $attributes; ?>>
 	<?php if(!empty($slideshow)) : ?>
 		<?php print $slideshow; ?>
 	<?php else : if(!empty($node->header_text) && isset($node->header_image)) : ?>
@@ -102,7 +102,7 @@
 	</header>
 	<?php endif; ?>
 	<div class="page-section-content"<?php print $content_attributes; ?>>
-		
+
 		<?php print $node->body; ?>
 	</div> <!-- /.content -->
 

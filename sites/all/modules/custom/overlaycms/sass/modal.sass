@@ -1,9 +1,24 @@
 
 .overlaycms-edit
 	position: absolute
-	
+	z-index: 999
+	top: 0
+	right: 0
+
 	.overlaycms-open-modal
-		width: 100px
-		height: 100px
+		width: 20px
+		height: 20px
 		background: #000
 		display: block
+		opacity:  .2
+		@include csstransition(opacity .2s ease)
+
+.overlay-edit-field
+	position: relative
+
+	&:hover
+		.overlaycms-open-modal
+			opacity: 0.5
+
+.ctools-overlaycms-modal-content .popups-close .close
+	color: #000

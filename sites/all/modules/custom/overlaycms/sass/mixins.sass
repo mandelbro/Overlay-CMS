@@ -1,0 +1,108 @@
+
+@mixin webfont($name)
+	font-family: $name
+	font-weight: normal
+	-webkit-font-smoothing: antialiased
+
+@mixin smoothfont()
+	-webkit-font-smoothing: antialiased
+	-moz-font-smoothing: antialiased
+	-ms-font-smoothing: antialiased
+	-o-font-smoothing: antialiased
+	font-smoothing: antialiased
+
+@mixin transform-3d-fix()
+	-webkit-transform: translate3d(0,0,0)
+	-moz-transform: translate3d(0,0,0)
+	-ms-transform: translate3d(0,0,0)
+	-o-transform: translate3d(0,0,0)
+	transform: translate3d(0,0,0)
+
+@mixin transform3d-fix()
+	-webkit-transform: translate3d(0,0,0)
+	-moz-transform: translate3d(0,0,0)
+	-ms-transform: translate3d(0,0,0)
+	-o-transform: translate3d(0,0,0)
+	transform: translate3d(0,0,0)
+
+@mixin csstransform($rules)
+	-webkit-transform: $rules
+	-moz-transform: $rules
+	-ms-transform: $rules
+	-o-transform: $rules
+	transform: $rules
+
+@mixin csstransform-origin($rules)
+	-webkit-transform-origin: $rules
+	-moz-transform-origin: $rules
+	-ms-transform-origin: $rules
+	-o-transform-origin: $rules
+	transform-origin: $rules
+
+@mixin csstransition($rules)
+	-webkit-transition: $rules
+	-moz-transition: $rules
+	-ms-transition: $rules
+	-o-transition: $rules
+	transition: $rules
+
+@mixin csstransition-transform($options)
+	-webkit-transition: -webkit-transform $options
+	-moz-transition: -moz-transform $options
+	-ms-transition: -ms-transform $options
+	-o-transition: -o-transform $options
+	transition: transform $options
+
+@mixin cssanimation($rules)
+	-webkit-animation: $rules
+	-moz-animation: $rules
+	-ms-animation: $rules
+	-o-animation: $rules
+	animation: $rules
+
+@mixin cssborder-radius($rules)
+	-webkit-border-radius: $rules
+	-moz-border-radius: $rules
+	-ms-border-radius: $rules
+	-o-border-radius: $rules
+	border-radius: $rules
+
+@mixin css-gradient-vertical($color1, $color2, $start, $finish, $fallback)
+	background-color: $fallback
+	background: -moz-linear-gradient(top, $color1 $start, $color2 $finish) // FF3.6+
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$color1), color-stop($finish,$color2)) // Chrome,Safari4+
+	background: -webkit-linear-gradient(top, $color1 $start,$color2 $finish) // Chrome10+,Safari5.1+
+	background: -o-linear-gradient(top, $color1 $start,$color2 $finish) // Opera 11.10+
+	background: -ms-linear-gradient(top, $color1 $start,$color2 $finish) // IE10+
+	background: linear-gradient(to bottom, $color1 $start,$color2 $finish) // W3C
+
+@mixin css-gradient-horizontal($color1, $color2, $start, $finish, $fallback)
+	background-color: $fallback
+	background: -moz-linear-gradient(left, $color1 $start, $color2 $finish) // FF3.6+
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,$color1), color-stop($finish,$color2)) // Chrome,Safari4+
+	background: -webkit-linear-gradient(left, $color1 $start,$color2 $finish) // Chrome10+,Safari5.1+
+	background: -o-linear-gradient(left, $color1 $start,$color2 $finish) // Opera 11.10+
+	background: -ms-linear-gradient(left, $color1 $start,$color2 $finish) // IE10+
+	background: linear-gradient(to right, $color1 $start,$color2 $finish) // W3C
+
+@mixin background-cover
+	background-repeat: no-repeat
+	background-position: center center
+	-webkit-background-size: cover
+	-moz-background-size: cover
+	-o-background-size: cover
+	background-size: cover
+
+@mixin cssopacity($value)
+	$msvalue: $value*100
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=$msvalue)"
+	filter: alpha(opacity=$msvalue)
+	-moz-opacity: $value
+	-khtml-opacity: $value
+	opacity: $value
+
+@mixin cssnotransition()
+	-moz-transition: none
+	-webkit-transition: none
+	-o-transition: color 0 ease-in
+	transition: none

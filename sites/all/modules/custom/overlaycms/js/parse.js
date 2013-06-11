@@ -1,16 +1,14 @@
 ;(function($){
 
   Drupal.overlayCMS = Drupal.OverlayCMS || new OverlayCMS();
-  
+
   Drupal.behaviors.overlayCMSparseData = {
     attach : function() {
+    	console.log('test');
     	Drupal.overlayCMS.parse();
     }
   };
-  
-  function OverlayCMS() {
-  }
-  
+
   OverlayCMS.prototype.parse = function() {
 		$('*[data-nid]').each(function() {
 			var $element = $(this);
@@ -19,11 +17,11 @@
 				'nid' : $element.data('nid'),
 				'fields' : $element.data('fields'),
 				'type' : 'edit'
-			}));
-			// run the chaos tools modal parser
-			Drupal.behaviors.ZZCToolsModal.attach();
+			})).addClass('overlay-edit-field');
 			// profit
 		});
+		// run the modal parser
+		Drupal.overlayCMS.addModalHandlers();
 	};
-	
+
 })(jQuery);
